@@ -4,7 +4,7 @@
     <transition name="slide-fade">
 	<router-view v-if="isRouterAlive"></router-view>
  </transition>
-  
+
   </div>
 </template>
 <script>
