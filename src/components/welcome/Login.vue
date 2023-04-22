@@ -1,5 +1,5 @@
 <template>
-    <div class="login_container">
+    <div class="login_container">//类名，方便后续添加样式
       <div class="login">
         <div class="login-form">
           <h2>登录</h2>
@@ -120,41 +120,40 @@
             this.loading = true//当调用调用接口前开启
             // 登录请求
             user.login(this.loginForm).then(res => {//发送请求
-              console.log(res.data.token)
+              console.log(res.data)
               if (res.data.status_code== true) {
+                // 登录成功（异步编程）
                   let token = res.data.token
                   window.sessionStorage.setItem('Token',JSON.stringify({
                     token: token
                   }))
-                  if (res.data.warehouse == true) {//旧用户,发送获取请求
+                  if (res.data.warehouse == false) {//旧用户,发送获取请求
+                    this.$router.push({ path: '/home' })
                       user.getInitStock(token).then(res=>{
-                        console.log(res)
-                        if (res.data.status == true) { //成功获取旧用户初始化数据
+                        if (res.data.status_code == true) { //成功获取旧用户初始化数据
                           // 保存后端仓库数据
                           window.sessionStorage.setItem('depository',JSON.stringify({
                             depository: res.data.depository
                           }))
                           //保存初始化参数
-                          console.log(res.data.initData.capacity_x)
-                          window.sessionStorage.setItem('initData',JSON.stringify({
-                          capacity_x: res.data.initData.capacity_x,
-                          capacity_y: res.data.initData.capacity_y,
-                          avg: res.data.initData.avg,
-                          gateMachine: res.data.initData.gate_machine
-                        }))
-                          this.$message({
-                          message: '登录成功',
-                          type: 'success'
-                        })
-                     } else {   //获取旧用户初始化数据失败,重新初始化
+                        //   window.sessionStorage.setItem('initData',JSON.stringify({
+                        //   capacity_x: this.initStock.capacity_x,
+                        //   capacity_y: this.initStock.capacity_y,
+                        //   avg: this.initStock.avg,
+                        //   gateMachine: this.initStock.gateMachine
+                        // }))
+                        } 
+                        else {   //获取旧用户初始化数据失败
                           this.initVisible= true
                         }
                       })
-                      this.$router.push({ path: '/home' })
-                  } else {//新用户
+                  }else {//新用户
                     this.initVisible= true
                   }
-                 
+                  // this.$message({
+                  //   message: '登录成功',
+                  //   type: 'success'
+                  // })
               } else {
                 this.$message({
                   message: '登录失败，用户名或密码错误',
