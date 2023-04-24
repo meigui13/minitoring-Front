@@ -207,7 +207,7 @@
   <style>
   .login_container {
       background-image: url("../../assets/welcome.jpg");
-      height: 900px;
+      height: 665px;
   }
   
   .login {
