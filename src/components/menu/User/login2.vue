@@ -54,7 +54,7 @@
                         <el-input class=" register-input"  placeholder="中文组成,长度在2以上"  v-model="registerForm.userName" style="width: 300px;"></el-input>
                             </div>   
                         </el-form-item>
-                        <el-form-item  prop="managerID" class="hover"  v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;" v-if="registerForm.isManager=='false'">
+                        <el-form-item  prop="managerID" class="hover"  v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;" v-if="registerForm.isManager=='true'">
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <span slot="label" class="register-span" >管理员ID</span>
                         <el-input class="register-input"  placeholder="长度为2-16，数字或字母组成" v-model="registerForm.managerID"  style="width: 300px;"></el-input>
@@ -76,8 +76,8 @@
         <div class="panels-container">
             <div class="panel left-panel">
                 <div class="content">
-                    <h1>自动化仓库管理系统</h1>
-                    <p>加入我们，成为我们的一份子。</p>
+                    <h3>加入我们</h3>
+                    <p>加入我们，成为本站的一份子。</p>
                     <button class="btn transparent" @click="isLogin = !isLogin">
                         去注册
                     </button>
@@ -86,7 +86,7 @@
             </div>
             <div class="panel right-panel">
                 <div class="content">
-                    <h1>自动化仓库管理系统</h1>
+                    <h3>已有帐号？</h3>
                     <p>立即登录已有帐号，享受独家权益。</p>
                     <button class="btn transparent" @click="isLogin = !isLogin">
                         去登录
@@ -100,7 +100,6 @@
 
 <script >
 import user from '@/api/user.js'
-import manager from '@/router/managerIndex.js'
 export default {
     name: 'Login',
     
@@ -198,13 +197,9 @@ export default {
                 if (res.data.status_code === true ) {
                     //保存token、用户权限类型、用户名
                     window.localStorage.setItem('token',res.data.token)
-                    let authority=window.sessionStorage.setItem('authority',res.data.authority)
+                    window.sessionStorage.setItem('authority',res.data.authority)
                     window.sessionStorage.setItem('userID',this.loginForm.userID)
                     window.sessionStorage.setItem('userName',res.data.userName)
-                    if(authority === 'manager'){//切换路由
-                        this.$router.options.routes = manager
-                        this.$router.addRoute(manager)
-                    }
                     // 登录成功
                     this.$message({
                     message: '登录成功',

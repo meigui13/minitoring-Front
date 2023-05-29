@@ -264,7 +264,6 @@ export default{
     },
     created(){
        this.fetchNewTable()
-       
     },
     methods:{
       /**----------------------------------通用方法--------------------------------- */
@@ -273,11 +272,6 @@ export default{
             outAndIn.showIn().then(res=>{
                 if (res.data.status_code == true){
                     this.tableData = res.data.inList
-                }
-            })
-            outAndIn.fetchInPeopleNameList().then(res=>{
-                if(res.data.status_code == true){
-                    this.inPeopleNameList = res.data.inPeopleNameList
                 }
             })
       },
@@ -289,7 +283,6 @@ export default{
       },
       //查询
       searchMag(formName){
-        
         this.$refs[formName].validate((valid) => {
             if (valid) {
                 this.Loading = true
