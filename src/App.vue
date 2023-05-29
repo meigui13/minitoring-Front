@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <router-view/>
-    <!-- <transition name="slide-fade">
+    <!-- <router-view/> -->
+    <transition name="slide-fade">
 	<router-view v-if="isRouterAlive"></router-view>
- </transition> -->
+ </transition>
   
   </div>
 </template>
@@ -34,7 +34,6 @@ export default {
 </script>
 
 <style >
-@import url('@/assets/icon/iconfont.css');
 /**删除浏览器滚动条 */
 ::-webkit-scrollbar {
   width: 0 !important;
