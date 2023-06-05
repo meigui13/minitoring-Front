@@ -40,7 +40,7 @@ export default {
         })
     },
     /**
-     * 4.获取客户流水信息
+     * 4.客户流水信息查询
      * @param{*} param
      * @returns
      */
