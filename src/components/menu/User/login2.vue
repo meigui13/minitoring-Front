@@ -12,12 +12,12 @@
                          <el-input class=" login-input"  placeholder="请填写用户名"  v-model="loginForm.userID" style="width: 300px;"></el-input>
                             </div>
                         </el-form-item>
-            
+
                         <el-form-item  prop="password" class="hover" v-show="!isCode" style="width: 100%;" >
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <el-button icon="el-icon-key" circle style="font-size: 20px;margin-right: 10px;"></el-button>
                         <el-input class=" login-input"  placeholder="请填写 3-18 位密码" type="password" v-model="loginForm.password" show-password></el-input>
-                            </div>   
+                            </div>
                         </el-form-item>
                         </div>
                         <el-form-item  >
@@ -40,25 +40,25 @@
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <span slot="label" class="register-span" >密码</span>
                         <el-input class=" register-input"  placeholder="请填写 3-16 位密码" type="password" v-model="registerForm.password" show-password style="width: 300px;"></el-input>
-                            </div>   
+                            </div>
                         </el-form-item>
                         <el-form-item  prop="passwordConfirm" class="hover"  v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;">
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <span slot="label" class="register-span" >确认密码</span>
                         <el-input class=" register-input"  placeholder="请填写 3-16 位密码" type="password" v-model="registerForm.passwordConfirm" show-password style="width: 300px;"></el-input>
-                            </div>   
+                            </div>
                         </el-form-item>
                         <el-form-item  prop="userName" class="hover" v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;">
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <span slot="label" class="register-span" >真实姓名</span>
                         <el-input class=" register-input"  placeholder="中文组成,长度在2以上"  v-model="registerForm.userName" style="width: 300px;"></el-input>
-                            </div>   
+                            </div>
                         </el-form-item>
                         <el-form-item  prop="managerID" class="hover"  v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;" v-if="registerForm.isManager=='false'">
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <span slot="label" class="register-span" >管理员ID</span>
                         <el-input class="register-input"  placeholder="长度为2-16，数字或字母组成" v-model="registerForm.managerID"  style="width: 300px;"></el-input>
-                            </div>   
+                            </div>
                         </el-form-item>
                         </div>
                         <el-form-item  style="margin-top: 0px;padding: 0px;height: 30px;">
@@ -76,8 +76,8 @@
         <div class="panels-container">
             <div class="panel left-panel">
                 <div class="content">
-                    <h3>加入我们</h3>
-                    <p>加入我们，成为本站的一份子。</p>
+                    <h1>自动化仓库管理系统</h1>
+                    <p>加入我们，成为我们的一份子。</p>
                     <button class="btn transparent" @click="isLogin = !isLogin">
                         去注册
                     </button>
@@ -86,7 +86,7 @@
             </div>
             <div class="panel right-panel">
                 <div class="content">
-                    <h3>已有帐号？</h3>
+                    <h1>自动化仓库管理系统</h1>
                     <p>立即登录已有帐号，享受独家权益。</p>
                     <button class="btn transparent" @click="isLogin = !isLogin">
                         去登录
@@ -100,9 +100,10 @@
 
 <script >
 import user from '@/api/user.js'
+import manager from '@/router/managerIndex.js'
 export default {
     name: 'Login',
-    
+
     data() {
         var userID = (rule, value, callback) => {
         if (!value) {
@@ -195,11 +196,30 @@ export default {
                 user.login(this.loginForm).then(res => {
                     console.log(res)
                 if (res.data.status_code === true ) {
+                    
                     //保存token、用户权限类型、用户名
                     window.localStorage.setItem('token',res.data.token)
+                    let authority=res.data.authority
                     window.sessionStorage.setItem('authority',res.data.authority)
+                    window.localStorage.setItem('authority',res.data.authority)
                     window.sessionStorage.setItem('userID',this.loginForm.userID)
                     window.sessionStorage.setItem('userName',res.data.userName)
+                    console.log(authority)
+                    // if(authority === 'manager'){//切换路由
+                    //     console.log("manager")
+                    //     // manager.forEach(res=>{
+                    //     //     router.addRoute(res);
+                    //     //     })
+                    //     this.$router.addRoute(manager);
+                    //     this.$router.options.routes = manager
+                    //     // 登录成功
+                    //     this.$message({
+                    //     message: '登录成功',
+                    //     type: 'success'
+                    //     })
+                    //     window.localStorage.setItem('token',res.data.token)
+                    //     this.$router.push('/home')
+                    // }
                     // 登录成功
                     this.$message({
                     message: '登录成功',
@@ -264,7 +284,7 @@ export default {
                         this.loading = false
                     })
                 }
-                
+
             }
         })
         }
@@ -285,7 +305,7 @@ export default {
     text-align:right;
     padding-bottom: 3px;
     margin-bottom: 7px;
-    
+
 }
 .register-input /deep/ .el-input__inner {
     max-width: 500px;
@@ -306,7 +326,7 @@ export default {
     color: #333;
 }
 .login-input /deep/ .el-input__inner {
-    
+
     max-width: 500px;
     width: 100%;
     background-color: #f0f0f0;
