@@ -11,12 +11,12 @@
             <div style="float: right;">
                 <el-button icon="el-icon-d-arrow-right" size="large" circle style="border: transparent !important;" @click="backToInSock"></el-button>
             </div>
-            <el-form :model="newOutOrder" label-width="100px" ref="newOutOrder" :rules="rules" 
+            <el-form :model="newOutOrder" label-width="100px" ref="newOutOrder" :rules="rules"
             style="width: 500px; text-align:center;display: inline-block;height: 170px;">
                 <el-form-item  style="display: inline-block">
                     <span slot="label"  class="span-text">出库单号:</span>
                     <el-tag type="success" class="tag">{{ newOutOrder.outID }}</el-tag>
-                    </el-form-item>
+                </el-form-item>
                 <el-form-item style="display: inline-block">
                     <span slot="label"  class="span-text">订单号:</span>
                     <el-tag v-if="isEdit===false" class="tag">{{ newOutOrder.orderID }}</el-tag>
@@ -26,7 +26,7 @@
                 <el-form-item prop="" class="" style="display: inline-block">
                     <span slot="label"  class="span-text">出库交接人:</span>
                     <el-tag v-if="isEdit===false" class="tag">{{ newOutOrder.outPeopleName }}</el-tag>
-                    <el-select v-else v-model="newOutOrder.outPeopleName"  clearable placeholder="请选择" 
+                    <el-select v-else v-model="newOutOrder.outPeopleName"  clearable placeholder="请选择"
                     class="tag">
                         <el-option
                         v-for="item in outPeopleNameList"
@@ -36,7 +36,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                
+
                 <el-form-item  class="el-form-item-span" v-if="isNew_out=='false'">
                     <!--可修改：处于编辑状态，管理员，状态为待审核/已拒绝-->
                     <span slot="label"  class="span-text">订单状态:</span>
@@ -66,19 +66,19 @@
         <el-card style="margin-top: 10px;">
             <div style="margin-bottom: 10px;text-align: center;">
                 <el-button type="primary" icon="el-icon-plus" size="small" style="float:left;padding: 6px;"
-                v-if="isEdit===true" 
+                v-if="isEdit===true"
                 @click="addParcel">添加包裹</el-button>
-                <el-button type="danger" icon="el-icon-delete" size="small" plain style="float:right;padding: 6px; " 
+                <el-button type="danger" icon="el-icon-delete" size="small" plain style="float:right;padding: 6px; "
                 v-if="isEdit===true"
                 @click="Delete">批量删除</el-button>
                 <el-tag type="primary" style="font-size: medium;font-weight:bold;">包 裹 信 息</el-tag>
-                <el-tooltip class="item" effect="light" content="双击编辑" placement="top-start">
+                <el-tooltip class="item" effect="light" content="请选择包裹进行出库" placement="top-start">
                 <el-button icon="el-icon-question" size="large" circle style="padding: 0px;float: right;margin-top: 6px;margin-right: 7px;border:transparent !important;;"></el-button>
                 </el-tooltip>
             </div>
-                
-        <el-table :data="newOutOrder.parcelList.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
-        @selection-change="handleSelectionChange" 
+
+        <el-table :data="newOutOrder.parcelList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+        @selection-change="handleSelectionChange"
         style="width: 100%"
         :header-cell-style="{background:'#ebf3fc',padding:'0px',textAlign: 'center'}"
         :row-style="{height:'40px'}" :cell-style="{padding:'0px', textAlign: 'center' }"
@@ -101,13 +101,13 @@
             <el-table-column prop="toAddr"  label="收货地址" >
             </el-table-column>
         </el-table>
-        <el-pagination align='center' 
-        @size-change="handleSizeChange" 
+        <el-pagination align='center'
+        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage" 
-        :page-sizes="[5,10,20]" 
-        :page-size="pageSize" 
-        layout="total, sizes, prev, pager, next, jumper" 
+        :current-page="currentPage"
+        :page-sizes="[5,10,20]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
         :total="newOutOrder.parcelList.length"
         style="margin-top: 7px;">
         </el-pagination>
@@ -129,23 +129,23 @@
         </el-card>
         <el-dialog title="请选择包裹（以下包裹正在库中）"  :visible.sync="dialogFormVisible" style="padding: 0px;" :width="'1000px'" class="dialogue-add">
             <div style="text-align:center;">
-                <el-form :model="searchMag" ref="searchMag" style="width: 450px; text-align:center;display: inline-block;">
-                    <el-form-item style="display:flex">
+                <el-form :model="searchMag" :rules="rules" ref="searchMag" style="width: 450px; text-align:center;display: inline-block;">
+                    <el-form-item style="display:flex" prop="parcelId">
                     <span slot="label"  class="span-text" >包裹ID:</span>
-                    <el-input size="small" clearable v-model="searchMag.parcelId" class="tag"></el-input>
-                    <el-button type="primary" :loading="Loading" @click="searchMag('searchMag')" icon="el-icon-search"  round size="small">搜索</el-button>
-                    <el-tooltip class="item" effect="light" content="清除所有筛选条件、恢复默认排序、清空选择" placement="top-start">
+                    <el-input size="small"  clearable v-model="searchMag.parcelId" class="tag"></el-input>
+                    <el-button type="primary" :loading="Loading" @click="search('searchMag')" icon="el-icon-search"  round size="small">搜索</el-button>
+                    <el-tooltip class="item" effect="light" content="重置表格内容" placement="top-start">
                     <el-button type="primary" icon="el-icon-refresh-right" @click="initialParcel" plain  circle style="padding:5px;"></el-button>
                     </el-tooltip>
                     </el-form-item>
                 </el-form>
             </div>
-            <el-table :data="parcelList.slice((currentPage_dia-1)*pageSize_dia,currentPage_dia*pageSize_dia)" 
-            @selection-change="handleSelectionChange_dia" 
+            <el-table :data="parcelList.slice((currentPage_dia-1)*pageSize_dia,currentPage_dia*pageSize_dia)"
+            @selection-change="handleSelectionChange_dia"
             style="width: 100%"
             :header-cell-style="{background:'#ebf3fc',padding:'0px',textAlign: 'center'}"
             :row-style="{height:'40px'}" :cell-style="{padding:'0px', textAlign: 'center' }"
-            highlight-current-row  
+            highlight-current-row
             :default-sort = "{prop: 'parcelID', order: 'increasing'}">
             <el-table-column
             type="selection">
@@ -164,19 +164,19 @@
             </el-table-column>
             <el-table-column prop="toAddr"  label="收货地址" >
             </el-table-column>
-            <el-table-column label="操作">
+            <!-- <el-table-column label="操作">
             <template slot-scope="scope">
                     <el-button @click="deleteOne(scope.row)" type="text" size="small" >选择</el-button>
             </template>
-            </el-table-column>
+            </el-table-column> -->
             </el-table>
-            <el-pagination align='center' 
-            @size-change="handleSizeChange_dia" 
+            <el-pagination align='center'
+            @size-change="handleSizeChange_dia"
             @current-change="handleCurrentChange_dia"
-            :current-page="currentPage_dia" 
-            :page-sizes="[10,30,50]" 
-            :page-size="pageSize_dia" 
-            layout="total, sizes, prev, pager, next, jumper" 
+            :current-page="currentPage_dia"
+            :page-sizes="[10,30,50]"
+            :page-size="pageSize_dia"
+            layout="total, sizes, prev, pager, next, jumper"
             :total="parcelList.length"
             style="margin-top: 7px;">
             </el-pagination>
@@ -217,7 +217,7 @@ function getNowTime() {
     return time;
 }
 export default {
-    
+
     //修改、查看、添加都是一样的界面
     data(){
         var parcelID = (rule, value, callback) => {
@@ -273,20 +273,20 @@ export default {
             outPeopleNameList:['王小龙','李小虎'],
             searchMag:{
                 parcelId: "",
-                parcelState: "",
-                shelfID: "",
-                regionName: ""
+                // parcelState: "",
+                // shelfID: "",
+                // regionName: ""
             },
             newOutOrder:{
-                outID: "20974567382",
-                orderID: "287392052",
-                outPeopleName: "小王",
+                outID: "",
+                orderID: "",
+                outPeopleName: "",
                 visible: false,
                 //以下为编辑查看特有
                 outStatus:"待审核",
                 outTime:"249752",
-                userName:"小王",
-                managerName:"王总",
+                userName:"",
+                managerName:"",
                 parcelList: [
                     {
                     parcelID: "234567890343",
@@ -444,18 +444,23 @@ export default {
             ],
             rules:{
                 outID:[{}],
-                orderID:[{validator: parcelID, trigger: 'blur'}],
-                outPeopleName:[{validator: outPeople, trigger: 'blur'}],
+                orderID:[
+                { required: true,  message: "不能为空", trigger: "blur"},    
+                {validator: parcelID, trigger: 'blur'}],
+                outPeopleName:[
+                { required: true,  message: "不能为空", trigger: "blur"},],
                 //对话框
-                parcelID:[{validator: parcelID, trigger: 'blur'}],
-                fromPeople:[{validator: name, trigger: 'blur'}],
-                fromPhone:[{validator: phone, trigger: 'blur'}],
-                fromAddrSelect: [{required: true, message: '请选择', trigger: 'blur'}],
-                fromAddrDetail:[{validator: addrDetail, trigger: 'blur'}],
-                toPeople:[{validator: name, trigger: 'blur'}],
-                toPhone:[{validator: phone, trigger: 'blur'}],
-                toAddrSelect: [{required: true, message: '请选择', trigger: 'blur'}],
-                toAddrDetail:[{validator: addrDetail, trigger: 'blur'}]
+                parcelID:[ { required: true,  message: "不能为空", trigger: "blur"},
+                {validator: parcelID, trigger: 'blur'}],
+                parcelId:[ { required: true,  message: "不能为空", trigger: "blur"}],
+                // fromPeople:[{validator: name, trigger: 'blur'}],
+                // fromPhone:[{validator: phone, trigger: 'blur'}],
+                // fromAddrSelect: [{required: true, message: '请选择', trigger: 'blur'}],
+                // fromAddrDetail:[{validator: addrDetail, trigger: 'blur'}],
+                // toPeople:[{validator: name, trigger: 'blur'}],
+                // toPhone:[{validator: phone, trigger: 'blur'}],
+                // toAddrSelect: [{required: true, message: '请选择', trigger: 'blur'}],
+                // toAddrDetail:[{validator: addrDetail, trigger: 'blur'}]
             },
             //表格分页
             multipleSelection: [],//选中的信息
@@ -482,7 +487,14 @@ export default {
                 outAndIn.singleOutOrderDetail(window.sessionStorage.getItem('row_out')).then(res=>{
                     if (res.data.status_code == true){
                         //保存数据
-                        this.newOutOrder.outID = res.data.outID
+                        this.newInOrder.outID = res.data.inID
+                        this.newInOrder.inPeopleName = res.data.inPeopleName
+                        this.newInOrder.inStatus = res.data.inStatus
+                        this.newInOrder.managerName = res.data.managerName
+                        this.newInOrder.orderID = res.data.orderID
+                        this.newInOrder.userName =res.data.userName
+                        this.newInOrder.inTime =res.data.inTime
+                        this.newInOrder.parcelList =res.data.parcelList
                     }else {
                         this.$message({
                             message:"获取包裹详情异常",
@@ -513,16 +525,22 @@ export default {
                     }
 
                 }
-           
+
         }
     },
     methods:{
     /**----------------------------------------普通操作方法------------------------------------------------- */
     //搜索包裹
-    searchMag(formName){
+    search(formName){
         this.$refs[formName].validate(valid=>{
             if (valid){
-                outAndIn.searchParcel(this.searchMag).then(res=>{
+                let temp={
+                    parcelId:this.searchMag.parcelId,
+                    parcelState: "",
+                    shelfID: "",
+                    regionName: ""
+                }
+                outAndIn.searchParcel(temp).then(res=>{
                     console.log(res)
                     if (res.data.status_code){
                         this.parcelList = res.data.parcelList
@@ -543,7 +561,7 @@ export default {
                 this.outPeopleNameList = res.data.outPeopleNameList
             }
         })
-        
+
      },
      //包裹列表获取
      initialParcel(){
@@ -565,7 +583,7 @@ export default {
         this.$router.push({path:'/outStock'})
     },
     //批量删除
-    Delete(){ 
+    Delete(){
         for (let k = 0; k < this.multipleSelection.length; k++) {
             this.newOutOrder.parcelList.splice(
                 this.newOutOrder.parcelList.findIndex(
@@ -577,8 +595,9 @@ export default {
     },
     //保存新订单或者保存修改
     saveOrder(formName){
-        this.$refs[formName].validate(valid=>{
-            if(valid){ 
+        if(this.newOutOrder.parcelList.length>0){
+            this.$refs[formName].validate(valid=>{
+            if(valid){
                 if (this.isNew_out == 'true'){
                     this.Loading =true
                     outAndIn.addOutOrder(this.newOutOrder).then(res=>{
@@ -591,7 +610,7 @@ export default {
                         this.$router.push('/outStock')
                     }else {
                         this.$message({
-                            message:"申请异常",
+                            message:res.message,
                             type:'error'
                         })
                     }
@@ -621,9 +640,16 @@ export default {
                     }
                 })
                 }
-                
+
             }
         })
+        }else {
+            this.$message({
+                message:"包裹数量必须大于0，请添加包裹",
+                type:"error"
+            })
+        }
+
     },
     //出库操作
     enter(formName){
@@ -679,13 +705,13 @@ export default {
     handleSelectionChange_dia(val) {
     this.multipleSelection_dia = val;
     },
-   
+
     // 清空表单
     clearForm (formName) {
         this.$refs[formName].resetFields()
         this.dialogFormVisible=false
     },
-   
+
 
     }
 }
