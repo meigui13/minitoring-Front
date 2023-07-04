@@ -9,7 +9,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Element)
 Vue.config.productionTip = false
-window.localStorage.removeItem('token')
 // window.localStorage.setItem('token',JSON.stringify({
 //   token: "okkk"
 // }))

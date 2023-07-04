@@ -5,15 +5,8 @@
             <div class="header-left">
                 <div class="logo-box">
                     <div class="logo"><img src="@/assets/image/mao.png" width="40px" height="40px"  class="img"/></div>
-                        <span class="system-name text">自动化仓库管理系统</span>
-                        <!-- <div style="margin-left: 40px;">
-                            <el-breadcrumb separator="/">
-                            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                            <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-                            <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                            <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-                            </el-breadcrumb>
-                        </div> -->
+                        <span class="system-name text">智慧养老系统</span>
+                       
                 </div>
 
 
@@ -52,48 +45,18 @@
                     <el-submenu index="1" class="test">
                         <template slot="title">
                         <i class="el-icon-user-solid"></i>
-                        <span slot="title">人员管理模块</span>
+                        <span slot="title">管理中心</span>
                         </template>
-                        <el-menu-item index="enter" class="el-menu-item">入库交接人</el-menu-item>
-                        <el-menu-item index="outer" >出库交接人</el-menu-item>
-                        <el-menu-item index="company" v-if="isManager==true" >客户</el-menu-item>
-                        <el-menu-item index="staff" v-if="isManager==true" >员工</el-menu-item>
+                        <el-menu-item index="old" class="el-menu-item">老人</el-menu-item>
+                        <el-menu-item index="outer" >义工</el-menu-item>
                     </el-submenu>
-                    <el-submenu index="2" class="test">
-                        <template slot="title">
-                        <i class="el-icon-s-order"></i>
-                        <span slot="title">出/入库管理模块</span>
-                        </template>
-                        <el-menu-item index="inStock" >入库</el-menu-item>
-                        <el-menu-item index="outStock" >出库</el-menu-item>
-                        <el-menu-item index="managerCheck" v-if="isManager==true">审批中心</el-menu-item>
-                    </el-submenu>
-                    <el-menu-item index="area" >
-                        <template slot="title">
-                        <i class="el-icon-s-home"></i>
-                        <span>仓库管理模块</span>
-                        </template>
-                    </el-menu-item>
-                    <!-- <el-submenu index="3" class="test">
-                        <template slot="title">
-                        <i class="el-icon-s-home"></i>
-                        <span slot="title">仓库管理模块</span>
-                        </template>
-                        <el-menu-item index="area" >库区管理</el-menu-item>
-                        <el-menu-item index="shelf" >货架管理</el-menu-item>
-                    </el-submenu> -->
                     <el-menu-item index="parcel" >
                         <template slot="title">
                         <i class="el-icon-s-cooperation"></i>
-                        <span>包裹管理模块</span>
+                        <span>监控中心</span>
                         </template>
                     </el-menu-item>
-                    <!-- <el-menu-item index="data" class="el-menu-item">
-                        <template slot="title">
-                        <i class="el-icon-s-data"></i>
-                        <span>数据统计</span>
-                        </template>
-                    </el-menu-item> -->
+                    
                 </el-menu>
             </el-aside>
             <el-main class="main">

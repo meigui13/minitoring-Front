@@ -11,23 +11,16 @@ const service = axios.create({
 })
 //请求头配置
 
-//添加请求拦截器
-service.interceptors.request.use(
-  config => {
-    console.log(localStorage.getItem("token"))
-    if(localStorage.getItem("token")){
-      config.headers['token'] = localStorage.getItem("token")
-    }
-    // if(store.state.token){
-    //   config.headers.common['token'] = store.state.token.token
-    // }
-    return config;
-  },
-  error => {
-    //请求错误
-    return Promise.reject(error);
-  }
-);
+// //添加请求拦截器
+// service.interceptors.request.use(
+//   config => {
+//     return config;
+//   },
+//   error => {
+//     //请求错误
+//     return Promise.reject(error);
+//   }
+// );
 // 响应拦截器
 service.interceptors.response.use(
   // response => response,
@@ -36,26 +29,7 @@ service.interceptors.response.use(
    * 当code返回如下情况则说明权限有问题，登出并返回到登录页
    */
   response => {
-    // const res = response
-    // if (res.code !== 200) {
-    //   if (res.code > 4000) {
-    //     Message({
-    //       message: res.message,
-    //       type: 'error',
-    //       duration: 5 * 1000
-    //     })
-    //     return response.success
-    //   }
-
-    //   Message({
-    //     message: res.message,
-    //     type: 'error',
-    //     duration: 5 * 1000
-    //   })
-    //   return Promise.reject(new Error('error'))
-    // } else {
-    //   return response.data
-    // }
+    
     return response.data
   },
   error => {

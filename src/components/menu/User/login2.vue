@@ -25,74 +25,19 @@
                         </el-form-item>
                     </el-form>
                 </form>
-
-                <form action="#" class="sign-up-form">
-                    <h2 class="title">注册</h2>
-                    <el-form :model="registerForm" :rules="rules" ref="registerForm"   >
-                        <div style="margin-right: 56px;">
-                            <el-form-item  prop="userID" class="hover" style="margin-top: 0px;margin-bottom: 13px;" >
-                            <div style="display: flex;justify-content: center; align-items: center;">
-                                <span slot="label" class="register-span">用户名</span>
-                             <el-input class=" register-input"  placeholder="长度为2-16，数字或字母组成"  v-model="registerForm.userID" style="width: 300px;"></el-input>
-                            </div>
-                        </el-form-item>
-                        <el-form-item  prop="password" class="hover" v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;" >
-                            <div style="display: flex;justify-content: center; align-items: center;">
-                                <span slot="label" class="register-span" >密码</span>
-                        <el-input class=" register-input"  placeholder="请填写 3-16 位密码" type="password" v-model="registerForm.password" show-password style="width: 300px;"></el-input>
-                            </div>
-                        </el-form-item>
-                        <el-form-item  prop="passwordConfirm" class="hover"  v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;">
-                            <div style="display: flex;justify-content: center; align-items: center;">
-                                <span slot="label" class="register-span" >确认密码</span>
-                        <el-input class=" register-input"  placeholder="请填写 3-16 位密码" type="password" v-model="registerForm.passwordConfirm" show-password style="width: 300px;"></el-input>
-                            </div>
-                        </el-form-item>
-                        <el-form-item  prop="userName" class="hover" v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;">
-                            <div style="display: flex;justify-content: center; align-items: center;">
-                                <span slot="label" class="register-span" >真实姓名</span>
-                        <el-input class=" register-input"  placeholder="中文组成,长度在2以上"  v-model="registerForm.userName" style="width: 300px;"></el-input>
-                            </div>
-                        </el-form-item>
-                        <el-form-item  prop="managerID" class="hover"  v-show="!isCode" style="margin-top: 0px;margin-bottom: 13px;" v-if="registerForm.isManager=='false'">
-                            <div style="display: flex;justify-content: center; align-items: center;">
-                                <span slot="label" class="register-span" >管理员ID</span>
-                        <el-input class="register-input"  placeholder="长度为2-16，数字或字母组成" v-model="registerForm.managerID"  style="width: 300px;"></el-input>
-                            </div>
-                        </el-form-item>
-                        </div>
-                        <el-form-item  style="margin-top: 0px;padding: 0px;height: 30px;">
-                            <el-radio v-model="registerForm.isManager" label="true" style="font-weight: 550; font-size: 1.1rem;padding: 0px;" class="hover">管理员</el-radio>
-                            <el-radio v-model="registerForm.isManager" label="false" style="font-weight: 550; font-size: 1.1rem;padding: 0px;" class="hover">普通员工</el-radio>
-                        </el-form-item>
-                        <el-form-item  style="margin-top: 0px;">
-                        <el-button type="primary" icon="el-icon-s-promotion" @click="register('registerForm')" :loading="loading" class="btn " style="margin-top: 0px;">立即注册</el-button>
-                        </el-form-item>
-                    </el-form>
-                </form>
             </div>
         </div>
 
         <div class="panels-container">
             <div class="panel left-panel">
                 <div class="content">
-                    <h1>自动化仓库管理系统</h1>
+                    <h1>智慧养老系统</h1>
                     <p>加入我们，成为我们的一份子。</p>
-                    <button class="btn transparent" @click="isLogin = !isLogin">
-                        去注册
+                    <button class="btn transparent">
+                        欢迎
                     </button>
                 </div>
                 <img src="@/assets/image/signin.svg" class="image" alt="" />
-            </div>
-            <div class="panel right-panel">
-                <div class="content">
-                    <h1>自动化仓库管理系统</h1>
-                    <p>立即登录已有帐号，享受独家权益。</p>
-                    <button class="btn transparent" @click="isLogin = !isLogin">
-                        去登录
-                    </button>
-                </div>
-                <img src="@/assets/image/signup.svg" class="image" alt="" />
             </div>
         </div>
     </div>
@@ -125,35 +70,7 @@ export default {
         }
       }
 
-      var passwordConfirm = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入确认密码！'))
-        } else if (!/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{3,16}$/.test(value)) {
-          return callback(new Error('密码长度在3-16个字符,只能包含数字、大小写字母'))
-        } else if (value !== this.registerForm.password) {
-          return callback(new Error('两次输入的密码不一致！'))
-        } else {
-          return callback()
-        }
-      }
-      var userName = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入真实姓名'))
-        } else if (!/^[\u4e00-\u9fa5]{2,20}$/.test(value)) {
-          return callback(new Error('2个以上汉字'))
-        } else {
-          callback()
-        }
-      }
-      var managerID = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入所属管理员ID'))
-        } else if (!/^[A-Za-z0-9]{2,16}$/.test(value)) {
-          return callback(new Error('长度在2-16个字符,数字或字母组成'))
-        } else {
-          callback()
-        }
-      }
+     
 
       return {
         isCode: false,
@@ -161,18 +78,10 @@ export default {
         loading: false,//加载效果
         //登录参数
         loginForm: {
-          userID: '',
-          password: ''
+          userID: 'lyb',
+          password: '123'
         },
-        //注册参数
-        registerForm: {
-          userID: '',
-          password: '',
-          userName:'',
-          managerID:'',
-          isManager: 'false',
-          passwordConfirm: '',
-        },
+        
         rules: {
           userID: [
             { validator: userID, trigger: 'blur' }
@@ -180,10 +89,7 @@ export default {
           password: [
             { validator: password, trigger: 'blur' }
           ],
-          passwordConfirm: [{validator: passwordConfirm, trigger: 'blur'}],
-          userName: [ {validator: userName, trigger: 'blur'} ],
-          managerID: [{validator: managerID, trigger: 'blur'}]
-
+          
         }
         }
     },
@@ -197,35 +103,13 @@ export default {
                     console.log(res)
                 if (res.data.status_code === true ) {
                     
-                    //保存token、用户权限类型、用户名
-                    window.localStorage.setItem('token',res.data.token)
-                    let authority=res.data.authority
-                    window.sessionStorage.setItem('authority',res.data.authority)
-                    window.localStorage.setItem('authority',res.data.authority)
+                    //保存用户名
+                   
                     window.sessionStorage.setItem('userID',this.loginForm.userID)
-                    window.sessionStorage.setItem('userName',res.data.userName)
-                    console.log(authority)
-                    // if(authority === 'manager'){//切换路由
-                    //     console.log("manager")
-                    //     // manager.forEach(res=>{
-                    //     //     router.addRoute(res);
-                    //     //     })
-                    //     this.$router.addRoute(manager);
-                    //     this.$router.options.routes = manager
-                    //     // 登录成功
-                    //     this.$message({
-                    //     message: '登录成功',
-                    //     type: 'success'
-                    //     })
-                    //     window.localStorage.setItem('token',res.data.token)
-                    //     this.$router.push('/home')
-                    // }
-                    // 登录成功
                     this.$message({
                     message: '登录成功',
                     type: 'success'
                     })
-                    window.localStorage.setItem('token',res.data.token)
                     this.$router.push('/home')
                 } else {
                     this.$message({
@@ -239,55 +123,7 @@ export default {
             }
         })
         },
-        //注册
-        register(formName){
-            this.$refs[formName].validate((valid) => {
-            if (valid) {
-                if (this.registerForm.isManager == 'false'){//普通用户
-                    this.loading = true
-                    user.userRegister(this.registerForm).then(res => {
-                        console.log(res)
-                    if (res.data.status_code ===true ) {
-                        // 注册成功
-                        this.$message({
-                        message: '注册成功',
-                        type: 'success'
-                        })
-                        this.isLogin = !this.isLogin
-                    } else {
-                        this.$message({
-                        message: '注册失败，该用户已存在',
-                        type: 'error'
-                        })
-                    }
-                    }).finally(res => {
-                        this.loading = false
-                    })
-                } else {//管理员
-                    this.loading = true
-                    user.managerRegister(this.registerForm).then(res => {
-                        console.log(res)
-                    if (res.data.status_code ===true ) {
-                        // 注册成功
-                        this.$message({
-                        message: '注册成功',
-                        type: 'success'
-                        })
-                        this.isLogin = !this.isLogin
-                    } else {
-                        this.$message({
-                        message: '注册失败，该用户已存在',
-                        type: 'error'
-                        })
-                    }
-                    }).finally(res => {
-                        this.loading = false
-                    })
-                }
-
-            }
-        })
-        }
+        
     }
 }
 </script>

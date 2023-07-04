@@ -15,10 +15,6 @@
                         </template>
                         <el-descriptions-item  label="用户名">{{ this.userName }}</el-descriptions-item>
                         <el-descriptions-item label="手机号" class="test">{{ this.phone }}</el-descriptions-item>   
-                        <el-descriptions-item label="所属中转站">
-                        <el-tag >{{ this.stationName }}</el-tag>
-                        </el-descriptions-item>
-                        <el-descriptions-item label="账号创建时间" class="test">{{ this.startTime }}</el-descriptions-item> 
                     </el-descriptions>
                 </el-card>
             </el-form-item>
@@ -28,9 +24,6 @@
             <el-form :model="changeInfo" ref="changeInfo" :rules="rules">
                 <el-form-item label="电话号码:" label-width="100px" prop="phone">
                    <el-input v-model="changeInfo.userPhone" placeholder="11位数手机号"></el-input>
-                </el-form-item>
-                <el-form-item label="所属中转站:" label-width="100px" prop="address">
-                    <el-input v-model="changeInfo.stationName" ></el-input>
                 </el-form-item>
                 <el-form-item label="电子邮箱:" label-width="100px" prop="userEmail">
                     <el-input v-model="changeInfo.userEmail" ></el-input>
@@ -74,13 +67,6 @@ export default{
                 }
                 }
       }
-      var addr = (rule, value, callback) => {
-            if (!value && this.changeInfo.phone== '') {
-                return callback(new Error('二者不能同时为空'))
-                } else {
-                    callback()
-                }
-      }
        var pre_password = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入旧密码'))
@@ -104,10 +90,8 @@ export default{
         return{
             loading: false,
             userJPG: jpg,
-            userName: "hyt4",
+            userName: "lyb",
             phone: "142578343",
-            stationName: "北京中关村二部",
-            startTime:"2022.5.1",
             userEmail:"123@qq.com",
             dialogFormVisible: false,
             changePasswordDialog: false,
@@ -122,7 +106,6 @@ export default{
             },
             rules:{
                 phone: [{ validator: phone, trigger: 'blur' }],
-                address: [{ validator: addr, trigger: 'blur'}],
                 pre_password: [{ required: true,validator: pre_password, trigger: 'blur'}],
                 new_password: [{ required: true,validator: new_password, trigger: 'blur'}]
             }
@@ -167,8 +150,6 @@ export default{
                     console.log(res)
                     this.userName = res.data.userName
                     this.phone = res.data.userPhone
-                    this.stationName = res.data.stationName
-                    this.startTime = res.data.startTime
                     this.userEmail = res.data.userEmail
                 
             }).finally(res=>{
