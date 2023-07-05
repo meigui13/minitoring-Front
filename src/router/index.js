@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import Login from '@/components/menu/User/login2.vue'
 import Home from '@/components/menu/Home2.vue'
 import HomePage from '@/components/menu/User/HomePage.vue'
+import Old from '@/components/menu/Management/old.vue'
+import Volunteer from '@/components/menu/Management/volunteer.vue'
+import Minitor from '@/components/menu/Minitoring/minitor.vue'
+import Accident from '@/components/menu/Minitoring/accident.vue'
 
 //https://registry.npm.taobao.org
 import User from '@/components/menu/personalPage.vue'
@@ -22,7 +26,10 @@ const routes = [
     children: [
       { path: '/personalPage', component: User },
       { path: '/HomePage', component: HomePage },
-     
+      {path: '/old', component: Old},
+      {path:'/volunteer',component:Volunteer},
+      {path:'/minitor',component:Minitor},
+      {path:'/accident',component:Accident}
     ]
   }
 ]
@@ -32,7 +39,7 @@ const router = new VueRouter({
   routes
 })
 
-// 路由守卫（加别的页面跳转判断，如添加等）
+// // 路由守卫（加别的页面跳转判断，如添加等）
 // router.beforeEach((to, from, next) => {
 //   if (to.matched.length === 0) {
 //     next('/404')
@@ -40,18 +47,14 @@ const router = new VueRouter({
 //     if(to.path == '/login' || to.path == '/' || to.path == '/404'){
 //         next()
 //     }else {
-//       let role = localStorage.getItem('authority')
-//       let token = localStorage.getItem('token')
+     
+//       let token = localStorage.getItem('userID')
 //       console.log(token)
 //       if (  token == null || token === '' ){
 //         alert("请先进行登录操作")
 //         next('/login')
 //       }else {
-//         if(to.meta.roles.includes(role)){
-//           next() //放行
-//         }else{
-//           alert("没有权限查看")
-//         }
+//          next() //放行
 //       }
 //     }
 //   }

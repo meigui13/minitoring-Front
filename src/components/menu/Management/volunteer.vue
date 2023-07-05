@@ -1,6 +1,6 @@
 <template>
     <div>
-        首页
+        义工
     </div>
 </template>
 <script >

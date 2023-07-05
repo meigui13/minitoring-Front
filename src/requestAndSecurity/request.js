@@ -3,7 +3,7 @@ import { Message } from 'element-ui'
 
 import store from '@/router'
 
-const BASE_API = 'http://localhost:7070'
+const BASE_API = 'http://127.0.0.1:7070'
 // create an axios instance
 const service = axios.create({
   baseURL: BASE_API, // api 的 base_url

@@ -1,6 +1,6 @@
 <template>
     <div>
-        首页
+        老人
     </div>
 </template>
 <script >
