@@ -1,5 +1,5 @@
 import request from '@/requestAndSecurity/request'
-// 包裹模块接口
+// 个人中心
 export default {
 /**
    * 1.获取个人主页信息

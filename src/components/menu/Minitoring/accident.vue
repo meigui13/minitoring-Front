@@ -1,6 +1,6 @@
 <template>
     <div>
-        首页
+        事件报表
     </div>
 </template>
 <script >

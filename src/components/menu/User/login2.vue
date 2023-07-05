@@ -9,7 +9,7 @@
                             <el-form-item  prop="userID" class="hover" >
                             <div style="display: flex;justify-content: center; align-items: center;">
                                 <el-button icon="el-icon-user" circle style="font-size: 20px;margin-right: 10px;"></el-button>
-                         <el-input class=" login-input"  placeholder="请填写用户名"  v-model="loginForm.userID" style="width: 300px;"></el-input>
+                         <el-input class=" login-input"  placeholder="请填写用户名"  v-model="loginForm.username" style="width: 300px;"></el-input>
                             </div>
                         </el-form-item>
 
@@ -45,12 +45,12 @@
 
 <script >
 import user from '@/api/user.js'
-import manager from '@/router/managerIndex.js'
+import index from '@/router/index.js'
 export default {
     name: 'Login',
 
     data() {
-        var userID = (rule, value, callback) => {
+        var username = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('用户名不可为空'))
         }else if (!/^[A-Za-z0-9]{2,16}$/.test(value)) {
@@ -78,13 +78,13 @@ export default {
         loading: false,//加载效果
         //登录参数
         loginForm: {
-          userID: 'lyb',
+          username: 'lyb',
           password: '123'
         },
         
         rules: {
-          userID: [
-            { validator: userID, trigger: 'blur' }
+          username: [
+            { validator: username, trigger: 'blur' }
           ],
           password: [
             { validator: password, trigger: 'blur' }
@@ -101,19 +101,37 @@ export default {
                 this.loading = true
                 user.login(this.loginForm).then(res => {
                     console.log(res)
-                if (res.data.status_code === true ) {
-                    
-                    //保存用户名
-                   
-                    window.sessionStorage.setItem('userID',this.loginForm.userID)
+                if (res.data.status_code === '2' ) {  
+                    //保存用户名,1账号不存在，2登陆成功，3密码错误，4未输入账号或密码
+                    window.localStorage.setItem('username',this.loginForm.username)
+                    window.sessionStorage.setItem('username',this.loginForm.username)
                     this.$message({
                     message: '登录成功',
                     type: 'success'
                     })
                     this.$router.push('/home')
-                } else {
+                } 
+                else if(res.data.status_code === '1' ){
                     this.$message({
-                    message: '登录失败，用户名或密码错误',
+                    message: '登录失败，账号不存在',
+                    type: 'error'
+                    })
+                }
+                else if(res.data.status_code === '3' ){
+                    this.$message({
+                    message: '登录失败，密码错误',
+                    type: 'error'
+                    })
+                }
+                else if(res.data.status_code === '4' ){
+                    this.$message({
+                    message: '未输入账号或密码',
+                    type: 'error'
+                    })
+                }
+                else {
+                    this.$message({
+                    message: '未知错误',
                     type: 'error'
                     })
                 }

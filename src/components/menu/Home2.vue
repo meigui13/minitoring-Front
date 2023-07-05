@@ -48,15 +48,16 @@
                         <span slot="title">管理中心</span>
                         </template>
                         <el-menu-item index="old" class="el-menu-item">老人</el-menu-item>
-                        <el-menu-item index="outer" >义工</el-menu-item>
+                        <el-menu-item index="volunteer" class="el-menu-item">义工</el-menu-item>
                     </el-submenu>
-                    <el-menu-item index="parcel" >
+                    <el-submenu index="2" class="test">
                         <template slot="title">
-                        <i class="el-icon-s-cooperation"></i>
-                        <span>监控中心</span>
+                        <i class="el-icon-user-solid"></i>
+                        <span slot="title">监控中心</span>
                         </template>
-                    </el-menu-item>
-                    
+                        <el-menu-item index="minitor" class="el-menu-item">监控录像</el-menu-item>
+                        <el-menu-item index="accident" class="el-menu-item">事件报表</el-menu-item>
+                    </el-submenu>
                 </el-menu>
             </el-aside>
             <el-main class="main">
@@ -87,12 +88,7 @@ export default{
       };
     },
     created(){
-        this.username = window.sessionStorage.getItem('userName')
-        if (window.sessionStorage.getItem('authority') == "manager"){
-            this.isManager=true
-        }else{
-            this.isManager=false
-        }
+        this.username = window.sessionStorage.getItem('username')
 
     },
     methods:{

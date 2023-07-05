@@ -11,10 +11,14 @@
                     <el-descriptions class="margin-top" title="个人信息" :column="3" :size="size">
                         <template slot="extra">
                         <el-button type="text" @click="changePasswordDialog = true">修改密码</el-button>
+                        <el-button type="primary" plain circle @click="addVisible = true">新增管理员</el-button>
                         <el-button type="primary" icon="el-icon-edit" circle @click="dialogFormVisible = true"></el-button>
                         </template>
                         <el-descriptions-item  label="用户名">{{ this.userName }}</el-descriptions-item>
-                        <el-descriptions-item label="手机号" class="test">{{ this.phone }}</el-descriptions-item>   
+                        <el-descriptions-item label="姓名" class="test">{{ this.userReal }}</el-descriptions-item>   
+                        <el-descriptions-item label="手机号" class="test">{{ this.phone }}</el-descriptions-item>
+                        <el-descriptions-item label="邮箱" class="test">{{ this.userEmail }}</el-descriptions-item>
+                        
                     </el-descriptions>
                 </el-card>
             </el-form-item>
@@ -34,6 +38,35 @@
                 <el-button type="primary" :loading="loading" @click="modify('changeInfo')">确 定</el-button>
             </div>
             </el-dialog>
+
+            <el-dialog width="450px" title="新增管理员" :visible.sync="addVisible" append-to-body>
+            <el-form :model="addInfo" ref="addInfo" :rules="rules">
+                <el-form-item label="用户名:" label-width="100px" prop="userName">
+                    <el-input v-model="addInfo.userEmail" ></el-input>
+                </el-form-item>
+                <el-form-item label="真实姓名:" label-width="100px" prop="userReal">
+                    <el-input v-model="addInfo.userReal" ></el-input>
+                </el-form-item>
+                <el-form-item label="登录密码:" label-width="100px" prop="password">
+                   <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="addInfo.password" show-password></el-input>
+                </el-form-item>
+                <el-form-item label="电话号码:" label-width="100px" prop="phone">
+                   <el-input v-model="addInfo.userPhone" placeholder="11位数手机号"></el-input>
+                </el-form-item>
+                <el-form-item label="电子邮箱:" label-width="100px" prop="userEmail">
+                    <el-input v-model="addInfo.userEmail" ></el-input>
+                </el-form-item>
+                <el-form-item label="身份:" label-width="100px" prop="description">
+                    <el-input v-model="addInfo.description" ></el-input>
+                </el-form-item>
+                
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="resetForm('addInfo')">重 置</el-button>
+                <el-button type="primary" :loading="loading" @click="add('addInfo')">确 定</el-button>
+            </div>
+            </el-dialog>
+
             <el-dialog width="450px" title="修改密码" :visible.sync="changePasswordDialog" append-to-body>
             <el-form :model="changePassword" ref="changePassword" :rules="rules">
                 <el-form-item label="旧密码:" label-width="100px" prop="pre_password">
@@ -76,6 +109,15 @@ export default{
           callback()
         }  
       }
+      var password = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入密码'))
+        } else if (!/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{3,16}$/.test(value)) {
+          return callback(new Error('密码长度在3-16个字符,只能包含数字、大小写字母'))
+        } else {
+          callback()
+        }  
+      }
       var new_password = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入新密码'))
@@ -93,21 +135,33 @@ export default{
             userName: "lyb",
             phone: "142578343",
             userEmail:"123@qq.com",
+            userReal:"李韵冰",
             dialogFormVisible: false,
             changePasswordDialog: false,
+            addVisible:false,
             changePassword: {
                 password:'',
                 passwordNew:'',
             },
             changeInfo: {
                 userPhone:'',
-                stationName:'',
-                userEmail:''
+                userEmail:'',
+                userReal:''
+            },
+            addInfo:{
+                userName:'',
+                userReal:'',
+                userPhone:'',
+                userEmail:'',
+                description:'',
+                password:''
+
             },
             rules:{
                 phone: [{ validator: phone, trigger: 'blur' }],
                 pre_password: [{ required: true,validator: pre_password, trigger: 'blur'}],
-                new_password: [{ required: true,validator: new_password, trigger: 'blur'}]
+                new_password: [{ required: true,validator: new_password, trigger: 'blur'}],
+                password:[{ required: true,validator: pre_password, trigger: 'blur'}],
             }
         }
     },
@@ -148,14 +202,36 @@ export default{
         getPersonalInfo(){
             center.personInformation().then(res=> {
                     console.log(res)
-                    this.userName = res.data.userName
-                    this.phone = res.data.userPhone
-                    this.userEmail = res.data.userEmail
+                    this.userName = res.data.username
+                    this.phone = res.data.phone
+                    this.userEmail = res.data.email
+                    this.userReal = res.data.userreal
                 
             }).finally(res=>{
                 
             })
         },
+        //新增管理员
+        add(formname){
+            console.log(this.$refs[formName])
+            this.$refs[formName].validate(valid=>{
+                if (valid) {
+                    this.loading = true
+                    center.addManage(this.addInfo).then(res=> {
+                        if (res.data.status_code==true) {
+                            this.$message({
+                                message: '成功添加管理员',
+                                type:'success'
+                            })
+                        }
+                    }).finally(res=> {
+                        this.loading = false
+                        this.addVisible = false
+                    })
+                }
+            })
+        },
+
         //修改密码
         change(formName){
             console.log(this.$refs[formName])
