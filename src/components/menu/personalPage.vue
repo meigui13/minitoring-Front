@@ -17,7 +17,9 @@
                         <el-descriptions-item  label="用户名">{{ this.userName }}</el-descriptions-item>
                         <el-descriptions-item label="姓名" class="test">{{ this.userReal }}</el-descriptions-item>   
                         <el-descriptions-item label="手机号" class="test">{{ this.phone }}</el-descriptions-item>
+                        <el-descriptions-item label="性别" class="test">{{ this.usersex }}</el-descriptions-item>
                         <el-descriptions-item label="邮箱" class="test">{{ this.userEmail }}</el-descriptions-item>
+                        <el-descriptions-item label="身份" class="test">{{ this.description }}</el-descriptions-item>
                         
                     </el-descriptions>
                 </el-card>
@@ -47,6 +49,9 @@
                 <el-form-item label="真实姓名:" label-width="100px" prop="userReal">
                     <el-input v-model="addInfo.userReal" ></el-input>
                 </el-form-item>
+                <el-form-item label="性别:" label-width="100px" prop="usersex">
+                    <el-input v-model="addInfo.usersex" ></el-input>
+                </el-form-item>
                 <el-form-item label="登录密码:" label-width="100px" prop="password">
                    <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="addInfo.password" show-password></el-input>
                 </el-form-item>
@@ -70,10 +75,10 @@
             <el-dialog width="450px" title="修改密码" :visible.sync="changePasswordDialog" append-to-body>
             <el-form :model="changePassword" ref="changePassword" :rules="rules">
                 <el-form-item label="旧密码:" label-width="100px" prop="pre_password">
-                   <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="changePassword.password" show-password></el-input>
+                   <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="changePassword.passwordOld" show-password></el-input>
                 </el-form-item>
                 <el-form-item label="新密码:" label-width="100px" prop="new_password">
-                    <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="changePassword.passwordNew" show-password></el-input>
+                    <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="changePassword.password" show-password></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -135,13 +140,16 @@ export default{
             userName: "lyb",
             phone: "142578343",
             userEmail:"123@qq.com",
+            usersex:"F",
             userReal:"李韵冰",
+            description:"测试人员",
             dialogFormVisible: false,
             changePasswordDialog: false,
             addVisible:false,
             changePassword: {
+                userName:this.userName,
+                passwordOld:'',
                 password:'',
-                passwordNew:'',
             },
             changeInfo: {
                 userPhone:'',
@@ -153,6 +161,7 @@ export default{
                 userReal:'',
                 userPhone:'',
                 userEmail:'',
+                usersex:'',
                 description:'',
                 password:''
 
@@ -169,6 +178,7 @@ export default{
         // this.token = JSON.parse(window.localStorage.getItem('Token')).token
         // this.changeInfo.token = this.token
         // this.changePassword.token = this.token
+        this.userName = window.sessionStorage.getItem('username')
         this.getPersonalInfo()
     },
     methods:{
@@ -200,12 +210,14 @@ export default{
         },
         //获取用户信息
         getPersonalInfo(){
-            center.personInformation().then(res=> {
+            center.personInformation(this.userName).then(res=> {
                     console.log(res)
-                    this.userName = res.data.username
+                    //this.userName = res.data.username
                     this.phone = res.data.phone
                     this.userEmail = res.data.email
-                    this.userReal = res.data.userreal
+                    this.userReal = res.data.realname
+                    this.usersex = res.data.sex
+                    this.description = res.data.description
                 
             }).finally(res=>{
                 
@@ -220,7 +232,7 @@ export default{
                     center.addManage(this.addInfo).then(res=> {
                         if (res.data.status_code==true) {
                             this.$message({
-                                message: '成功添加管理员',
+                                message: res.data.msg,
                                 type:'success'
                             })
                         }
@@ -241,7 +253,7 @@ export default{
                     center.modifyPassword(this.changePassword).then(res=> {
                         if (res.data.status_code==true) {
                             this.$message({
-                                message: '成功修改密码',
+                                message:res.data.msg,
                                 type:'success'
                             })
                         }

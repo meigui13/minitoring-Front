@@ -3,13 +3,16 @@ import request from '@/requestAndSecurity/request'
 export default {
 /**
    * 1.获取个人主页信息
-   * 
+   * @param {*} data 
    * @returns 
    */
-    personInformation() {
+    personInformation(param) {
     return request({
-      url: '/center/personInformation',
+      url: '/user/getuser',
       method: 'get',
+      params: {
+      username:param
+      }
     })
   },
   /**
@@ -19,8 +22,8 @@ export default {
    */
   modifyUserInformation(data) {
     return request({
-      url: '/center/modifyUserInformation',
-      method: 'post',
+      url: '/user/modifyinfo',
+      method: 'put',
       data:data
     })
   },
@@ -31,7 +34,19 @@ export default {
    */
     modifyPassword(data) {
     return request({
-      url: '/center//center/modifyPassword',
+      url: '/user/changePW',
+      method: 'put',
+      data:data
+    })
+  },
+  /**
+   * 4.新增管理员
+   * @param {*} data 
+   * @returns 
+   */
+   addManage(data) {
+    return request({
+      url: '/user/addNewUser',
       method: 'post',
       data:data
     })
