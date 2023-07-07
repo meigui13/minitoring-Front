@@ -6,7 +6,7 @@
                 <div class="logo-box">
                     <div class="logo"><img src="@/assets/image/mao.png" width="40px" height="40px"  class="img"/></div>
                         <span class="system-name text">智慧养老系统</span>
-                       
+
                 </div>
 
 
@@ -49,7 +49,7 @@
                         </template>
                         <el-menu-item index="old" class="el-menu-item">老人</el-menu-item>
                         <el-menu-item index="volunteer" class="el-menu-item">义工</el-menu-item>
-                        <el-menu-item index="worker" class="el-menu-item">工作人员</el-menu-item>
+                        <el-menu-item index="employee" class="el-menu-item">工作人员</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2" class="test">
                         <template slot="title">
