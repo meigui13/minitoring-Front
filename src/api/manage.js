@@ -63,4 +63,130 @@ export default {
             method: 'get'
         })
     },
+    /**-----------------------------------------------------------------**/
+    /**
+     * 1.增加工作人员信息
+     * @param {*} param
+     * @returns
+     */
+    addEmployee (param) {
+        return request({
+            url: '/manage/addEmployee/',
+            method: 'post',
+            data: param
+        })
+    },
+
+    /**
+     * 2.更新工作人员信息
+     * @param {*} data
+     * @returns
+     */
+    updateEmployee(data) {
+        return request({
+            url: '/manage/updateEmployee/',
+            method: 'put',
+            data: data
+        })
+    },
+
+    /**
+     * 3.工作人员离职办理
+     * @param {*} data
+     * @returns
+     */
+    resignEmployee(data) {
+        return request({
+            url: '/manage/resignEmployee/',
+            method: 'put',
+            data: data
+        })
+    },
+
+    /**
+     * 4.根据id查询工作人员信息
+     * @param {*} param
+     * @returns
+     */
+    checkEmployeeById(data) {
+        return request({
+            url: '/manage/checkEmployeeById/',
+            method: 'get'
+        })
+    },
+
+    /**
+     * 5.获取所有工作人员信息
+     * @param {*} param
+     * @returns
+     */
+    getEmployeeList(data) {
+        return request({
+            url: '/manage/getEmployeeList/',
+            method: 'get'
+        })
+    },
+    /**-----------------------------------------------------------------**/
+    /**
+     * 1.增加义工信息
+     * @param {*} param
+     * @returns
+     */
+    addVolunteer (param) {
+        return request({
+            url: '/manage/addVolunteer/',
+            method: 'post',
+            data: param
+        })
+    },
+
+    /**
+     * 2.更新义工信息
+     * @param {*} data
+     * @returns
+     */
+    updateVolunteer(data) {
+        return request({
+            url: '/manage/updateVolunteer/',
+            method: 'put',
+            data: data
+        })
+    },
+
+    /**
+     * 3.办理义工签出
+     * @param {*} data
+     * @returns
+     */
+    checkoutVolunteer(data) {
+        return request({
+            url: '/manage/checkoutVolunteer/',
+            method: 'put',
+            data: data
+        })
+    },
+
+    /**
+     * 4.根据id查询义工信息
+     * @param {*} param
+     * @returns
+     */
+    checkVolunteerById(data) {
+        return request({
+            url: '/manage/checkVolunteerById/',
+            method: 'get'
+        })
+    },
+
+    /**
+     * 5.获取所有义工信息
+     * @param {*} param
+     * @returns
+     */
+    getVolunteerList(data) {
+        return request({
+            url: '/manage/getVolunteerList/',
+            method: 'get'
+        })
+    },
 }
