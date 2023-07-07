@@ -6,14 +6,17 @@ import HomePage from '@/components/menu/User/HomePage.vue'
 import Old from '@/components/menu/Management/old.vue'
 import AddOld from '@/components/menu/Management/addOld'
 import Volunteer from '@/components/menu/Management/volunteer.vue'
+import AddVolunteer from '@/components/menu/Management/addVolunteer'
 import Employee from '@/components/menu/Management/employee'
+import AddEmployee from '@/components/menu/Management/addEmployee'
 import Minitor from '@/components/menu/Minitoring/minitor.vue'
 import Accident from '@/components/menu/Minitoring/accident.vue'
 import Test from '@/components/other/test'
 
-//https://registry.npm.taobao.org
 import User from '@/components/menu/personalPage.vue'
 import error from '@/components/other/404.vue'
+
+
 
 //const inNeedToCheck = () => import('@/components/menu/outAndIn/managerCheck.vue')
 
@@ -33,10 +36,12 @@ const routes = [
       { path: '/HomePage', component: HomePage },
       { path: '/old', component: Old },
       { path: '/addOld', component: AddOld },
-      { path:'/volunteer',component: Volunteer },
-      { path:'/employee',component: Employee },
-      { path:'/minitor',component:Minitor},
-      { path:'/accident',component:Accident}
+      { path: '/volunteer',component: Volunteer },
+      { path: '/addVolunteer', component: AddVolunteer },
+      { path: '/employee',component: Employee },
+      { path: '/addEmployee',component: AddEmployee },
+      { path: '/minitor',component:Minitor},
+      { path: '/accident',component:Accident}
     ]
   }
 ]
