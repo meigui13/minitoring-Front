@@ -49,6 +49,7 @@
                         </template>
                         <el-menu-item index="old" class="el-menu-item">老人</el-menu-item>
                         <el-menu-item index="volunteer" class="el-menu-item">义工</el-menu-item>
+                        <el-menu-item index="worker" class="el-menu-item">工作人员</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2" class="test">
                         <template slot="title">
