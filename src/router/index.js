@@ -5,8 +5,10 @@ import Home from '@/components/menu/Home2.vue'
 import HomePage from '@/components/menu/User/HomePage.vue'
 import Old from '@/components/menu/Management/old.vue'
 import Volunteer from '@/components/menu/Management/volunteer.vue'
+import Worker from '@/components/menu/Management/worker.vue'
 import Minitor from '@/components/menu/Minitoring/minitor.vue'
 import Accident from '@/components/menu/Minitoring/accident.vue'
+//import Minitorother from '@/components/menu/Minitoring/minitoring.vue'
 
 //https://registry.npm.taobao.org
 import User from '@/components/menu/personalPage.vue'
@@ -19,6 +21,7 @@ const routes = [
   { path: '/login', component: Login ,},
   { path: '/', redirect: '/login' },
   { path: '/404', component: error ,},
+  //{path:'/minitoring',component:Minitorother},
   {
     path: '/home',
     component: Home,
@@ -28,6 +31,7 @@ const routes = [
       { path: '/HomePage', component: HomePage },
       {path: '/old', component: Old},
       {path:'/volunteer',component:Volunteer},
+      {path:'/worker',component:Worker},
       {path:'/minitor',component:Minitor},
       {path:'/accident',component:Accident}
     ]
