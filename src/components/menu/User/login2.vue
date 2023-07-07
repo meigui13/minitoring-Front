@@ -70,8 +70,6 @@ export default {
         }
       }
 
-     
-
       return {
         isCode: false,
         isLogin: false,
@@ -81,7 +79,7 @@ export default {
           username: 'lyb',
           password: '123'
         },
-        
+
         rules: {
           username: [
             { validator: username, trigger: 'blur' }
@@ -89,7 +87,7 @@ export default {
           password: [
             { validator: password, trigger: 'blur' }
           ],
-          
+
         }
         }
     },
@@ -101,7 +99,7 @@ export default {
                 this.loading = true
                 user.login(this.loginForm).then(res => {
                     console.log(res)
-                if (res.data.status_code === '2' ) {  
+                if (res.data.status_code === '2' ) {
                     //保存用户名,1账号不存在，2登陆成功，3密码错误，4未输入账号或密码
                     window.localStorage.setItem('username',this.loginForm.username)
                     window.sessionStorage.setItem('username',this.loginForm.username)
@@ -110,7 +108,7 @@ export default {
                     type: 'success'
                     })
                     this.$router.push('/home')
-                } 
+                }
                 else if(res.data.status_code === '1' ){
                     this.$message({
                     message: '登录失败，账号不存在',
@@ -141,7 +139,7 @@ export default {
             }
         })
         },
-        
+
     }
 }
 </script>
