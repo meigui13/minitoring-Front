@@ -4,15 +4,20 @@ import Login from '@/components/menu/User/login2.vue'
 import Home from '@/components/menu/Home2.vue'
 import HomePage from '@/components/menu/User/HomePage.vue'
 import Old from '@/components/menu/Management/old.vue'
+import AddOld from '@/components/menu/Management/addOld'
 import Volunteer from '@/components/menu/Management/volunteer.vue'
-import Worker from '@/components/menu/Management/worker.vue'
+import AddVolunteer from '@/components/menu/Management/addVolunteer'
+import Employee from '@/components/menu/Management/employee'
+import AddEmployee from '@/components/menu/Management/addEmployee'
 import Minitor from '@/components/menu/Minitoring/minitor.vue'
 import Accident from '@/components/menu/Minitoring/accident.vue'
-//import Minitorother from '@/components/menu/Minitoring/minitoring.vue'
+import Test from '@/components/other/test'
 
-//https://registry.npm.taobao.org
 import User from '@/components/menu/personalPage.vue'
 import error from '@/components/other/404.vue'
+
+
+
 //const inNeedToCheck = () => import('@/components/menu/outAndIn/managerCheck.vue')
 
 Vue.use(VueRouter)
@@ -21,7 +26,7 @@ const routes = [
   { path: '/login', component: Login ,},
   { path: '/', redirect: '/login' },
   { path: '/404', component: error ,},
-  //{path:'/minitoring',component:Minitorother},
+  { path: '/testcamera',component: Test},
   {
     path: '/home',
     component: Home,
@@ -29,11 +34,14 @@ const routes = [
     children: [
       { path: '/personalPage', component: User },
       { path: '/HomePage', component: HomePage },
-      {path: '/old', component: Old},
-      {path:'/volunteer',component:Volunteer},
-      {path:'/worker',component:Worker},
-      {path:'/minitor',component:Minitor},
-      {path:'/accident',component:Accident}
+      { path: '/old', component: Old },
+      { path: '/addOld', component: AddOld },
+      { path: '/volunteer',component: Volunteer },
+      { path: '/addVolunteer', component: AddVolunteer },
+      { path: '/employee',component: Employee },
+      { path: '/addEmployee',component: AddEmployee },
+      { path: '/minitor',component:Minitor},
+      { path: '/accident',component:Accident}
     ]
   }
 ]
@@ -51,7 +59,7 @@ const router = new VueRouter({
 //     if(to.path == '/login' || to.path == '/' || to.path == '/404'){
 //         next()
 //     }else {
-     
+
 //       let token = localStorage.getItem('userID')
 //       console.log(token)
 //       if (  token == null || token === '' ){
@@ -62,6 +70,6 @@ const router = new VueRouter({
 //       }
 //     }
 //   }
- 
+
 // })
 export default router
