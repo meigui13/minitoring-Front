@@ -44,22 +44,22 @@
             <el-dialog width="450px" title="新增管理员" :visible.sync="addVisible" append-to-body>
             <el-form :model="addInfo" ref="addInfo" :rules="rules">
                 <el-form-item label="用户名:" label-width="100px" prop="userName">
-                    <el-input v-model="addInfo.userEmail" ></el-input>
+                    <el-input v-model="addInfo.username" ></el-input>
                 </el-form-item>
                 <el-form-item label="真实姓名:" label-width="100px" prop="userReal">
-                    <el-input v-model="addInfo.userReal" ></el-input>
+                    <el-input v-model="addInfo.realname" ></el-input>
                 </el-form-item>
                 <el-form-item label="性别:" label-width="100px" prop="usersex">
-                    <el-input v-model="addInfo.usersex" ></el-input>
+                    <el-input v-model="addInfo.sex" ></el-input>
                 </el-form-item>
                 <el-form-item label="登录密码:" label-width="100px" prop="password">
                    <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="addInfo.password" show-password></el-input>
                 </el-form-item>
                 <el-form-item label="电话号码:" label-width="100px" prop="phone">
-                   <el-input v-model="addInfo.userPhone" placeholder="11位数手机号"></el-input>
+                   <el-input v-model="addInfo.phone" placeholder="11位数手机号"></el-input>
                 </el-form-item>
                 <el-form-item label="电子邮箱:" label-width="100px" prop="userEmail">
-                    <el-input v-model="addInfo.userEmail" ></el-input>
+                    <el-input v-model="addInfo.email" ></el-input>
                 </el-form-item>
                 <el-form-item label="身份:" label-width="100px" prop="description">
                     <el-input v-model="addInfo.description" ></el-input>
@@ -157,11 +157,11 @@ export default{
                 userReal:''
             },
             addInfo:{
-                userName:'',
-                userReal:'',
-                userPhone:'',
-                userEmail:'',
-                usersex:'',
+                username:'',
+                realname:'',
+                phone:'',
+                email:'',
+                sex:'',
                 description:'',
                 password:''
 
