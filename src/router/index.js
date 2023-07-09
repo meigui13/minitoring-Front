@@ -5,6 +5,7 @@ import Home from '@/components/menu/Home2.vue'
 import HomePage from '@/components/menu/User/HomePage.vue'
 import Old from '@/components/menu/Management/old.vue'
 import AddOld from '@/components/menu/Management/addOld'
+import AddFace from '@/components/menu/Management/addFace'
 import Volunteer from '@/components/menu/Management/volunteer.vue'
 import AddVolunteer from '@/components/menu/Management/addVolunteer'
 import Employee from '@/components/menu/Management/employee'
@@ -36,6 +37,7 @@ const routes = [
       { path: '/HomePage', component: HomePage },
       { path: '/old', component: Old },
       { path: '/addOld', component: AddOld },
+      { path: '/addFace', component:AddFace},
       { path: '/volunteer',component: Volunteer },
       { path: '/addVolunteer', component: AddVolunteer },
       { path: '/employee',component: Employee },
