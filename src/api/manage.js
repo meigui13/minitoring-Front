@@ -45,10 +45,13 @@ export default {
      * @param {*} param
      * @returns
      */
-    checkOldById(data) {
+    checkOldById(param) {
         return request({
             url: '/manage/checkOldById/',
-            method: 'get'
+            method: 'get',
+            params: {
+               id:param
+            }
         })
     },
 
@@ -108,10 +111,13 @@ export default {
      * @param {*} param
      * @returns
      */
-    checkEmployeeById(data) {
+    checkEmployeeById(param) {
         return request({
             url: '/manage/checkEmployeeById/',
-            method: 'get'
+            method: 'get',
+            params: {
+                id:param
+            }
         })
     },
 
@@ -171,10 +177,13 @@ export default {
      * @param {*} param
      * @returns
      */
-    checkVolunteerById(data) {
+    checkVolunteerById(param) {
         return request({
             url: '/manage/checkVolunteerById/',
-            method: 'get'
+            method: 'get',
+            params: {
+                id:param
+            }
         })
     },
 

@@ -15,12 +15,12 @@
                         <el-button type="primary" icon="el-icon-edit" circle @click="dialogFormVisible = true"></el-button>
                         </template>
                         <el-descriptions-item  label="用户名">{{ this.userName }}</el-descriptions-item>
-                        <el-descriptions-item label="姓名" class="test">{{ this.userReal }}</el-descriptions-item>   
+                        <el-descriptions-item label="姓名" class="test">{{ this.userReal }}</el-descriptions-item>
                         <el-descriptions-item label="手机号" class="test">{{ this.phone }}</el-descriptions-item>
                         <el-descriptions-item label="性别" class="test">{{ this.usersex }}</el-descriptions-item>
                         <el-descriptions-item label="邮箱" class="test">{{ this.userEmail }}</el-descriptions-item>
                         <el-descriptions-item label="身份" class="test">{{ this.description }}</el-descriptions-item>
-                        
+
                     </el-descriptions>
                 </el-card>
             </el-form-item>
@@ -64,7 +64,7 @@
                 <el-form-item label="身份:" label-width="100px" prop="description">
                     <el-input v-model="addInfo.description" ></el-input>
                 </el-form-item>
-                
+
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="resetForm('addInfo')">重 置</el-button>
@@ -112,7 +112,7 @@ export default{
           return callback(new Error('密码长度在3-16个字符,只能包含数字、大小写字母'))
         } else {
           callback()
-        }  
+        }
       }
       var password = (rule, value, callback) => {
         if (!value) {
@@ -121,7 +121,7 @@ export default{
           return callback(new Error('密码长度在3-16个字符,只能包含数字、大小写字母'))
         } else {
           callback()
-        }  
+        }
       }
       var new_password = (rule, value, callback) => {
         if (!value) {
@@ -193,18 +193,18 @@ export default{
                     this.loading = true
                     console.log(this.changeInfo)
                     center.modifyUserInformation(this.changeInfo).then(res=> {
-                        if (res.data.status_code == true){
+                        if (res.status_code == true){
                             //重新获取用户信息
                             this.getPersonalInfo()
                             this.$message({
                             message: '修改信息成功',
                             type: 'success'
-                            }) 
+                            })
                         }
                     }).finally(res=>{
                         this.loading = false
                         this.dialogFormVisible = false
-                    })  
+                    })
                 }
             })
         },
@@ -218,9 +218,9 @@ export default{
                     this.userReal = res.data.realname
                     this.usersex = res.data.sex
                     this.description = res.data.description
-                
+
             }).finally(res=>{
-                
+
             })
         },
         //新增管理员
@@ -251,7 +251,7 @@ export default{
                 if (valid) {
                     this.loading = true
                     center.modifyPassword(this.changePassword).then(res=> {
-                        if (res.data.status_code==true) {
+                        if (res.status_code==true) {
                             this.$message({
                                 message:res.data.msg,
                                 type:'success'
@@ -276,7 +276,7 @@ export default{
     width: 700px;
 }
 .jpg {
-    margin-top: 2%; 
+    margin-top: 2%;
 }
 .margin-top {
     background-color: #f6f9fb;

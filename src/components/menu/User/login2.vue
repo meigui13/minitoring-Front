@@ -95,11 +95,15 @@ export default {
         //登录
         loginToHome(formName){
             this.$refs[formName].validate((valid) => {
+              console.log("断点1")
             if (valid) {
                 this.loading = true
                 user.login(this.loginForm).then(res => {
-                    console.log(res)
-                if (res.data.status_code === '2' ) {
+                  console.log(res)
+                  console.log("status_code" + res.status_code)
+
+                if (res.status_code == '2' ) {
+                  console.log("断点2")
                     //保存用户名,1账号不存在，2登陆成功，3密码错误，4未输入账号或密码
                     window.localStorage.setItem('username',this.loginForm.username)
                     window.sessionStorage.setItem('username',this.loginForm.username)
@@ -109,19 +113,19 @@ export default {
                     })
                     this.$router.push('/home')
                 }
-                else if(res.data.status_code === '1' ){
+                else if(res.status_code === '1' ){
                     this.$message({
                     message: '登录失败，账号不存在',
                     type: 'error'
                     })
                 }
-                else if(res.data.status_code === '3' ){
+                else if(res.status_code === '3' ){
                     this.$message({
                     message: '登录失败，密码错误',
                     type: 'error'
                     })
                 }
-                else if(res.data.status_code === '4' ){
+                else if(res.status_code === '4' ){
                     this.$message({
                     message: '未输入账号或密码',
                     type: 'error'
