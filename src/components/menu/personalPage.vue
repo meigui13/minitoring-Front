@@ -221,7 +221,7 @@ export default{
                     this.loading = true
                     console.log(this.changeInfo)
                     center.modifyUserInformation(this.changeInfo).then(res=> {
-                        if (res.data.status_code == true){
+                        if (res.code == '200'){
                             //重新获取用户信息
                             this.getPersonalInfo()
                             this.$message({
@@ -241,11 +241,11 @@ export default{
             center.personInformation(this.userName).then(res=> {
                     console.log(res)
                     //this.userName = res.data.username
-                    this.phone = res.data.phone
-                    this.userEmail = res.data.email
-                    this.userReal = res.data.realname
-                    this.usersex = res.data.sex
-                    this.description = res.data.description
+                    this.phone = res.phone
+                    this.userEmail = res.email
+                    this.userReal = res.realname
+                    this.usersex = res.sex
+                    this.description = res.description
                 
             }).finally(res=>{
                 
@@ -258,9 +258,9 @@ export default{
                 if (valid) {
                     this.loading = true
                     center.addManage(this.addInfo).then(res=> {
-                        if (res.data.status_code==true) {
+                        if (res.code=='200') {
                             this.$message({
-                                message: res.data.msg,
+                                message: res.msg,
                                 type:'success'
                             })
                         }
@@ -279,9 +279,9 @@ export default{
                 if (valid) {
                     this.loading = true
                     center.modifyPassword(this.changePassword).then(res=> {
-                        if (res.data.status_code==true) {
+                        if (res.code=='200') {
                             this.$message({
-                                message:res.data.msg,
+                                message:res.msg,
                                 type:'success'
                             })
                         }

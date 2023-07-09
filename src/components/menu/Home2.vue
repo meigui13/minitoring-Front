@@ -83,9 +83,7 @@ export default{
     data() {
       return {
         username:'HYT',
-        isManager:true,
         isRouterAlive: true,
-
       };
     },
     created(){

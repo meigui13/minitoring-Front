@@ -8,7 +8,7 @@ export default {
    */
     personInformation(param) {
     return request({
-      url: '/user/getuser',
+      url: '/user/getuser/',
       method: 'get',
       params: {
       username:param
@@ -22,7 +22,7 @@ export default {
    */
   modifyUserInformation(data) {
     return request({
-      url: '/user/modifyinfo',
+      url: '/user/changeInfo/',
       method: 'put',
       data:data
     })
@@ -34,7 +34,7 @@ export default {
    */
     modifyPassword(data) {
     return request({
-      url: '/user/changePW',
+      url: '/user/changePW/',
       method: 'put',
       data:data
     })
@@ -46,7 +46,7 @@ export default {
    */
    addManage(data) {
     return request({
-      url: '/user/addNewUser',
+      url: '/user/addNewUser/',
       method: 'post',
       data:data
     })
