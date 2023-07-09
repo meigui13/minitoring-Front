@@ -8,7 +8,7 @@ export default {
    */
   login (param) {
     return request({
-      url: '/user/login',
+      url: '/user/login/',
       method: 'post',
       data: param
     })
@@ -22,7 +22,7 @@ export default {
    */
    userHomePage() {
     return request({
-      url: '/user/userHomePage',
+      url: '/user/userHomePage/',
       method: 'get'
     })
   },

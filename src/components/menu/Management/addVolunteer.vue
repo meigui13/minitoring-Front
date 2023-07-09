@@ -128,9 +128,9 @@ export default {
                   this.$router.push({ path: '/addFace' })
                     this.loading = true
                     manage.addVolunteer(this.addInfo).then(res=> {
-                        if (res.data.status_code==true) {
+                        if (res.code=='200') {
                             this.$message({
-                                message: res.data.msg,
+                                message: res.msg,
                                 type:'success'
                             })
                             this.$router.push({ path: '/addFace' })

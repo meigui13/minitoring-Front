@@ -193,12 +193,12 @@ import manage from '@/api/manage'
                   this.$router.push({ path: '/addFace' })
                     this.loading = true
                     manage.addOld(this.addInfo).then(res=> {
-                        if (res.data.code==200) {
+                        if (res.code=='200') {
                             this.$message({
-                                message: res.data.msg,
+                                message: res.msg,
                                 type:'success'
                             })
-                            window.sessionStorage.setItem('id',res.data.id)
+                            window.sessionStorage.setItem('id',res.id)
                             this.$router.push({ path: '/addFace' })
                         }
                     }).finally(res=> {
