@@ -28,11 +28,17 @@
     </div>
         <el-dialog width="450px" title="修改个人信息" :visible.sync="dialogFormVisible" append-to-body>
             <el-form :model="changeInfo" ref="changeInfo" :rules="rules">
-                <el-form-item label="电话号码:" label-width="100px" prop="phone">
-                   <el-input v-model="changeInfo.userPhone" placeholder="11位数手机号"></el-input>
+                <el-form-item label="用户名:" label-width="100px" prop="username">
+                   <el-input v-model="changeInfo.username" placeholder="新用户名"></el-input>
                 </el-form-item>
-                <el-form-item label="电子邮箱:" label-width="100px" prop="userEmail">
-                    <el-input v-model="changeInfo.userEmail" ></el-input>
+                <el-form-item label="电话号码:" label-width="100px" prop="phone">
+                   <el-input v-model="changeInfo.phone" placeholder="11位数手机号"></el-input>
+                </el-form-item>
+                <el-form-item label="电子邮箱:" label-width="100px" prop="email">
+                    <el-input v-model="changeInfo.email" ></el-input>
+                </el-form-item>
+                <el-form-item label="描述" label-width="100px" prop="description">
+                   <el-input v-model="changeInfo.description" ></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -43,23 +49,23 @@
 
             <el-dialog width="450px" title="新增管理员" :visible.sync="addVisible" append-to-body>
             <el-form :model="addInfo" ref="addInfo" :rules="rules">
-                <el-form-item label="用户名:" label-width="100px" prop="userName">
-                    <el-input v-model="addInfo.userEmail" ></el-input>
+                <el-form-item label="用户名:" label-width="100px" prop="userame">
+                    <el-input v-model="addInfo.username" ></el-input>
                 </el-form-item>
-                <el-form-item label="真实姓名:" label-width="100px" prop="userReal">
-                    <el-input v-model="addInfo.userReal" ></el-input>
+                <el-form-item label="真实姓名:" label-width="100px" prop="realname">
+                    <el-input v-model="addInfo.realname" ></el-input>
                 </el-form-item>
-                <el-form-item label="性别:" label-width="100px" prop="usersex">
-                    <el-input v-model="addInfo.usersex" ></el-input>
+                <el-form-item label="性别:" label-width="100px" prop="sex">
+                    <el-input v-model="addInfo.sex" ></el-input>
                 </el-form-item>
                 <el-form-item label="登录密码:" label-width="100px" prop="password">
                    <el-input prefix-icon="el-icon-lock" placeholder="长度3-16个字符,包含数字、大小写字母" type="password" maxlength="18" v-model="addInfo.password" show-password></el-input>
                 </el-form-item>
                 <el-form-item label="电话号码:" label-width="100px" prop="phone">
-                   <el-input v-model="addInfo.userPhone" placeholder="11位数手机号"></el-input>
+                   <el-input v-model="addInfo.phone" placeholder="11位数手机号"></el-input>
                 </el-form-item>
-                <el-form-item label="电子邮箱:" label-width="100px" prop="userEmail">
-                    <el-input v-model="addInfo.userEmail" ></el-input>
+                <el-form-item label="电子邮箱:" label-width="100px" prop="email">
+                    <el-input v-model="addInfo.email" ></el-input>
                 </el-form-item>
                 <el-form-item label="身份:" label-width="100px" prop="description">
                     <el-input v-model="addInfo.description" ></el-input>
@@ -105,6 +111,16 @@ export default{
                 }
                 }
       }
+      var phone_ = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入电话号码'))
+        }
+          else if (!/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)) {
+                    return callback(new Error('手机号格式不正确'))
+            }else {
+                    callback()
+                }
+      }
        var pre_password = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入旧密码'))
@@ -134,6 +150,13 @@ export default{
           return callback()
         }
       }
+      var one =(rule,value,callback) => {
+        if(!value){
+          return callback(new Error('该项不可为空'))
+        }else{
+          callback()
+        }
+  }
         return{
             loading: false,
             userJPG: jpg,
@@ -147,21 +170,22 @@ export default{
             changePasswordDialog: false,
             addVisible:false,
             changePassword: {
-                userName:this.userName,
+                username:this.userName,
                 passwordOld:'',
                 password:'',
             },
             changeInfo: {
-                userPhone:'',
-                userEmail:'',
-                userReal:''
+                username:'',
+                email:'',
+                phone:'',
+                description:''
             },
             addInfo:{
-                userName:'',
-                userReal:'',
-                userPhone:'',
-                userEmail:'',
-                usersex:'',
+                username:'',
+                realname:'',
+                phone:'',
+                email:'',
+                sex:'',
                 description:'',
                 password:''
 
@@ -170,7 +194,11 @@ export default{
                 phone: [{ validator: phone, trigger: 'blur' }],
                 pre_password: [{ required: true,validator: pre_password, trigger: 'blur'}],
                 new_password: [{ required: true,validator: new_password, trigger: 'blur'}],
-                password:[{ required: true,validator: pre_password, trigger: 'blur'}],
+                password:[{ required: true,validator: password, trigger: 'blur'}],
+                username:[{required: true,validator: one, trigger: 'blur' }],
+                realname:[{required: true,validator: one, trigger: 'blur' }],
+                sex:[{required: true,validator: one, trigger: 'blur' }],
+                email:[{required: true,validator: one, trigger: 'blur' }],
             }
         }
     },
@@ -193,7 +221,7 @@ export default{
                     this.loading = true
                     console.log(this.changeInfo)
                     center.modifyUserInformation(this.changeInfo).then(res=> {
-                        if (res.status_code == true){
+                        if (res.code == '200'){
                             //重新获取用户信息
                             this.getPersonalInfo()
                             this.$message({
@@ -213,11 +241,11 @@ export default{
             center.personInformation(this.userName).then(res=> {
                     console.log(res)
                     //this.userName = res.data.username
-                    this.phone = res.data.phone
-                    this.userEmail = res.data.email
-                    this.userReal = res.data.realname
-                    this.usersex = res.data.sex
-                    this.description = res.data.description
+                    this.phone = res.phone
+                    this.userEmail = res.email
+                    this.userReal = res.realname
+                    this.usersex = res.sex
+                    this.description = res.description
 
             }).finally(res=>{
 
@@ -230,9 +258,9 @@ export default{
                 if (valid) {
                     this.loading = true
                     center.addManage(this.addInfo).then(res=> {
-                        if (res.data.status_code==true) {
+                        if (res.code=='200') {
                             this.$message({
-                                message: res.data.msg,
+                                message: res.msg,
                                 type:'success'
                             })
                         }
@@ -251,9 +279,9 @@ export default{
                 if (valid) {
                     this.loading = true
                     center.modifyPassword(this.changePassword).then(res=> {
-                        if (res.status_code==true) {
+                        if (res.code=='200') {
                             this.$message({
-                                message:res.data.msg,
+                                message:res.msg,
                                 type:'success'
                             })
                         }

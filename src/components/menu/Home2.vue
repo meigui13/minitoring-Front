@@ -83,9 +83,7 @@ export default{
     data() {
       return {
         username:'HYT',
-        isManager:true,
         isRouterAlive: true,
-
       };
     },
     created(){
@@ -108,7 +106,7 @@ export default{
         // 用户名下拉菜单选择事件
         handleCommand(command) {
         if (command == 'loginout') {
-            localStorage.removeItem('ms_username');
+            localStorage.removeItem('username');
             this.$router.push('/login');
             window.localStorage.clear()
             window.sessionStorage.clear()

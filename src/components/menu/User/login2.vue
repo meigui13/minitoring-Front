@@ -95,15 +95,11 @@ export default {
         //登录
         loginToHome(formName){
             this.$refs[formName].validate((valid) => {
-              console.log("断点1")
             if (valid) {
                 this.loading = true
                 user.login(this.loginForm).then(res => {
-                  console.log(res)
-                  console.log("status_code" + res.status_code)
-
-                if (res.status_code == '2' ) {
-                  console.log("断点2")
+                    console.log(res)
+                if (res.status_code === '2' ) {
                     //保存用户名,1账号不存在，2登陆成功，3密码错误，4未输入账号或密码
                     window.localStorage.setItem('username',this.loginForm.username)
                     window.sessionStorage.setItem('username',this.loginForm.username)

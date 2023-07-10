@@ -17,7 +17,7 @@
     </el-card>
     <!-- 查询结果区 -->
     <el-card style="margin-top: 10px;">
-      <el-button type="primary" icon="el-icon-plus" size="small" style="float:left;padding: 6px;margin-bottom: 10px;" @click="addNew">增加老人</el-button>
+      <el-button type="primary" icon="el-icon-plus" size="small" style="float:left;padding: 6px;margin-bottom: 10px;" @click="addNew">增加工作人员</el-button>
       <!-- 表相关 -->
       <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="width: 100%"
                 :header-row-style="{height:'30px'}"
