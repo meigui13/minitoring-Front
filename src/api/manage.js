@@ -198,4 +198,19 @@ export default {
             method: 'get'
         })
     },
+    /**
+     * 1.增加义工信息
+     * @param {*} param
+     * @returns
+     */
+    returnid (param) {
+        return request({
+            url: '/manage/getFaceCollectionStream/',
+            method: 'get',
+            params: {
+            id:param
+        }
+        })
+    },
+
 }

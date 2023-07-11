@@ -69,7 +69,7 @@ export default {
           callback()
          }
         }
-        
+
         var idcard =(rule,value,callback) => {
         if (!value) {
           return callback(new Error('请输入身份证号'))
@@ -98,7 +98,7 @@ export default {
         birthday:'',
         description:'',
         username:'',
-      
+
     },
     rules:{
       volunteername: [{required: true,validator: name_, trigger: 'blur' }],
@@ -124,16 +124,22 @@ export default {
             console.log(this.addInfo)
             this.$refs[formName].validate(valid=>{
                 if (valid) {
-                  console.log("通过表单验证")
-                  this.$router.push({ path: '/addFace' })
+                  console.log("通过表单验证,表单数据如下：")
+                  console.log(this.addInfo)
+                  // this.$router.push({ path: '/addFace' })
                     this.loading = true
                     manage.addVolunteer(this.addInfo).then(res=> {
+                      console.log(res)
                         if (res.code=='200') {
                             this.$message({
                                 message: res.msg,
                                 type:'success'
                             })
-                            this.$router.push({ path: '/addFace' })
+                          // 获取到id,并再次给后端发送请求
+                          window.sessionStorage.setItem('id',res.id)
+                          console.log("获取的id："+res.id)
+                          // manage.returnid(res.id)
+                          this.$router.push({ path: '/addFace' })
                         }
                         else{
                           this.$message({
@@ -147,7 +153,7 @@ export default {
                 }
             })
         },
-    
+
      }
 }
 </script>

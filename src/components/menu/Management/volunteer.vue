@@ -165,21 +165,21 @@ export default {
         username:''
       },
       tableData: [
-        {
-          ID:'1',
-          volunteername:'yyz',
-          sex:'F',
-          phone:'15302938376',
-          idcard:'440698200206264546',
-          birthday:'2002-06-26',
-          checkindate:'2023-07-08',
-          checkoutdate:'',
-          description:'准备出院',
-          created:'2023-07-07',
-          createby:'test01',
-          updated:'2023-07-07',
-          updateby:'zzz'
-        },
+        // {
+        //   ID:'1',
+        //   volunteername:'yyz',
+        //   sex:'F',
+        //   phone:'15302938376',
+        //   idcard:'440698200206264546',
+        //   birthday:'2002-06-26',
+        //   checkindate:'2023-07-08',
+        //   checkoutdate:'',
+        //   description:'准备出院',
+        //   created:'2023-07-07',
+        //   createby:'test01',
+        //   updated:'2023-07-07',
+        //   updateby:'zzz'
+        // },
       ],
       // 查询规则
       rules: {
@@ -225,22 +225,22 @@ export default {
       })
     },
     // 根据id查义工
-    checkPut(res){
-      this.tableData = null
-      this.tableData[0].ID = res.volunteerList.ID
-      this.tableData[0].volunteername = res.volunteerList.volunteername
-      this.tableData[0].sex = res.volunteerList.sex
-      this.tableData[0].phone = res.volunteerList.phone
-      this.tableData[0].idcard = res.volunteerList.idcard
-      this.tableData[0].birthday = res.volunteerList.birthday
-      this.tableData[0].checkindate = res.volunteerList.checkindate
-      this.tableData[0].checkoutdate = res.volunteerList.checkoutdate
-      this.tableData[0].description = res.volunteerList.description
-      this.tableData[0].created = res.volunteerList.created
-      this.tableData[0].createby = res.volunteerList.createby
-      this.tableData[0].updated = res.volunteerList.updated
-      this.tableData[0].updateby = res.volunteerList.updateby
-    },
+    // checkPut(res){
+    //   this.tableData = null
+    //   this.tableData[0].ID = res.volunteerList.ID
+    //   this.tableData[0].volunteername = res.volunteerList.volunteername
+    //   this.tableData[0].sex = res.volunteerList.sex
+    //   this.tableData[0].phone = res.volunteerList.phone
+    //   this.tableData[0].idcard = res.volunteerList.idcard
+    //   this.tableData[0].birthday = res.volunteerList.birthday
+    //   this.tableData[0].checkindate = res.volunteerList.checkindate
+    //   this.tableData[0].checkoutdate = res.volunteerList.checkoutdate
+    //   this.tableData[0].description = res.volunteerList.description
+    //   this.tableData[0].created = res.volunteerList.created
+    //   this.tableData[0].createby = res.volunteerList.createby
+    //   this.tableData[0].updated = res.volunteerList.updated
+    //   this.tableData[0].updateby = res.volunteerList.updateby
+    // },
     check(formName) {
       console.log("开始查找")
       this.$refs[formName].validate((valid) => {

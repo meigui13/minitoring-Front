@@ -82,13 +82,13 @@
                 </el-form-item>
               </el-form>
       </el-card>
-      
-  
-   
-    
+
+
+
+
   </div>
   </template>
-  
+
   <script>
 import manage from '@/api/manage'
 
@@ -154,7 +154,7 @@ import manage from '@/api/manage'
           description:'',
           username:'',
         },
-        rules:{ 
+        rules:{
           oldname:[{required: true,validator:name_,  trigger: 'blur'}],
           phone: [{required: true,validator: phone, trigger: 'blur' }],
           description:[{required: true,validator: one,  trigger: 'blur' }],
@@ -173,7 +173,6 @@ import manage from '@/api/manage'
           secondguardianwechat:[{required: true,validator: one,  trigger: 'blur'}]
         }
       }
-     
     },
     created() {
         this.addInfo.username = window.sessionStorage.getItem('username')
@@ -208,14 +207,14 @@ import manage from '@/api/manage'
                 }
             })
         },
-    
+
        }
   }
   </script>
-  
+
   <style scoped>
   .input-card{
-    
+
     width: 375px;
   }
 
