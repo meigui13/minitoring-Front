@@ -246,7 +246,6 @@ export default{
                     this.userReal = res.realname
                     this.usersex = res.sex
                     this.description = res.description
-
             }).finally(res=>{
 
             })
