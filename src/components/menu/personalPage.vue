@@ -160,12 +160,12 @@ export default{
         return{
             loading: false,
             userJPG: jpg,
-            userName: "lyb",
-            phone: "142578343",
-            userEmail:"123@qq.com",
-            usersex:"F",
-            userReal:"李韵冰",
-            description:"测试人员",
+            userName: "",
+            phone: "",
+            userEmail:"",
+            usersex:"",
+            userReal:"",
+            description:"",
             dialogFormVisible: false,
             changePasswordDialog: false,
             addVisible:false,
@@ -239,8 +239,8 @@ export default{
         //获取用户信息
         getPersonalInfo(){
             center.personInformation(this.userName).then(res=> {
-                    console.log(res)
-                    //this.userName = res.data.username
+                    console.log(this.userName)
+                    this.userName = window.sessionStorage.getItem('username')
                     this.phone = res.phone
                     this.userEmail = res.email
                     this.userReal = res.realname

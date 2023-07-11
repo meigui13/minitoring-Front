@@ -206,7 +206,7 @@ export default {
   methods: {
     // 该方法用于刷新表格
     fetchNewTable() {
-      manage.getEmployeeList().then(res => {
+      manage.getVolunteerList().then(res => {
         console.log("刷新表格")
         if (res.data.code == 200 ) {
           this.tableData = res.data.employeeList
