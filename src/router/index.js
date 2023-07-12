@@ -10,8 +10,10 @@ import Volunteer from '@/components/menu/Management/volunteer.vue'
 import AddVolunteer from '@/components/menu/Management/addVolunteer'
 import Employee from '@/components/menu/Management/employee'
 import AddEmployee from '@/components/menu/Management/addEmployee'
-import Minitor from '@/components/menu/Minitoring/minitor.vue'
-import Accident from '@/components/menu/Minitoring/accident.vue'
+import MinitorEmotion from '@/components/menu/Minitoring/minitorEmotion.vue'
+import MinitorFall from '@/components/menu/Minitoring/minitorFall.vue'
+import MinitorInteract from '@/components/menu/Minitoring/minitorInteract.vue'
+import MinitorIntrusion from '@/components/menu/Minitoring/minitorIntrusion.vue'
 import Test from '@/components/other/test'
 
 import User from '@/components/menu/personalPage.vue'
@@ -42,8 +44,10 @@ const routes = [
       { path: '/addVolunteer', component: AddVolunteer },
       { path: '/employee',component: Employee },
       { path: '/addEmployee',component: AddEmployee },
-      { path: '/minitor',component:Minitor},
-      { path: '/accident',component:Accident}
+      { path: '/minitorEmotion',component:MinitorEmotion},
+      { path: '/minitorFall',component:MinitorFall},
+      { path: '/minitorinteract',component:MinitorInteract},
+      { path: '/minitorintrusion',component:MinitorIntrusion}
     ]
   }
 ]
@@ -53,25 +57,25 @@ const router = new VueRouter({
   routes
 })
 
-// // 路由守卫（加别的页面跳转判断，如添加等）
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.length === 0) {
-//     next('/404')
-//   }else {
-//     if(to.path == '/login' || to.path == '/' || to.path == '/404'){
-//         next()
-//     }else {
+// 路由守卫（加别的页面跳转判断，如添加等）
+router.beforeEach((to, from, next) => {
+  if (to.matched.length === 0) {
+    next('/404')
+  }else {
+    if(to.path == '/login' || to.path == '/' || to.path == '/404'){
+        next()
+    }else {
 
-//       let token = localStorage.getItem('userID')
-//       console.log(token)
-//       if (  token == null || token === '' ){
-//         alert("请先进行登录操作")
-//         next('/login')
-//       }else {
-//          next() //放行
-//       }
-//     }
-//   }
+      let token = window.sessionStorage.getItem('username')
+      console.log(token)
+      if (  token == null || token === '' ){
+        alert("请先进行登录操作")
+        next('/login')
+      }else {
+         next() //放行
+      }
+    }
+  }
 
-// })
+})
 export default router

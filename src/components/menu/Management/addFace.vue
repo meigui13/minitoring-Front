@@ -16,11 +16,6 @@
       </iframe>
     </div>
       <el-button type="primary" icon="el-icon-user-solid" round:loading="loading" style="float:right;margin-right:43%;margin-top: 5px;" @click="resetForm('addInfo')">人脸录入完成</el-button>
-  
-  <!-- </el-card>
-   <el-card style="float: left; width:90%; margin-left: 5%;margin-top: 10px">
-    <el-button type="primary" :loading="loading" style="float: right;margin-right:2px;margin-top: 0px;margin-bottom: 12px" @click="resetForm('addInfo')">完成</el-button>
-  </el-card> -->
    </el-card>
  </div>
 </template>

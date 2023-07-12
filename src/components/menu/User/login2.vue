@@ -104,7 +104,7 @@ export default {
                   console.log("断2")
                 if (res.status_code === '2' ) {
                     //保存用户名,1账号不存在，2登陆成功，3密码错误，4未输入账号或密码
-                    window.localStorage.setItem('username',this.loginForm.username)
+                    //window.localStorage.setItem('username',this.loginForm.username)
                     window.sessionStorage.setItem('username',this.loginForm.username)
                     this.$message({
                     message: '登录成功',

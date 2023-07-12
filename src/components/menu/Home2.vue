@@ -56,8 +56,10 @@
                         <i class="el-icon-user-solid"></i>
                         <span slot="title">监控中心</span>
                         </template>
-                        <el-menu-item index="minitor" class="el-menu-item">监控录像</el-menu-item>
-                        <el-menu-item index="accident" class="el-menu-item">事件报表</el-menu-item>
+                        <el-menu-item index="minitorEmotion" class="el-menu-item">情绪检测监控</el-menu-item>
+                        <el-menu-item index="minitorFall" class="el-menu-item">摔倒检测监控</el-menu-item>
+                        <el-menu-item index="minitorIntrusion" class="el-menu-item">入侵检测监控</el-menu-item>
+                        <el-menu-item index="minitorInteract" class="el-menu-item">互动检测监控</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-aside>

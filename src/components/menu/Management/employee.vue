@@ -164,21 +164,21 @@ export default {
         username:''
       },
       tableData: [
-        // {
-        //   ID:'1',
-        //   employeename:'yyz',
-        //   sex:'F',
-        //   phone:'15302938376',
-        //   idcard:'440698200206264546',
-        //   birthday:'2002-06-26',
-        //   hiredate:'2023-07-08',
-        //   resigndate:'',
-        //   description:'准备出院',
-        //   created:'2023-07-07',
-        //   createby:'test01',
-        //   updated:'2023-07-07',
-        //   updateby:'zzz'
-        // },
+        {
+          ID:'1',
+          employeename:'yyz',
+          sex:'F',
+          phone:'15302938376',
+          idcard:'440698200206264546',
+          birthday:'2002-06-26',
+          hiredate:'2023-07-08',
+          resigndate:'',
+          description:'准备出院',
+          created:'2023-07-07',
+          createby:'test01',
+          updated:'2023-07-07',
+          updateby:'zzz'
+        },
       ],
       // 查询规则
       rules: {
