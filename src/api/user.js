@@ -14,11 +14,11 @@ export default {
     })
   },
 
-  
+
    /**
    * 2.首页信息获取
-   * @param {*} param 
-   * @returns 
+   * @param {*} param
+   * @returns
    */
    userHomePage() {
     return request({
@@ -26,5 +26,5 @@ export default {
       method: 'get'
     })
   },
-  
+
 }

@@ -28,7 +28,7 @@
       >
         <!-- 表头相关 -->
         <!--        <el-table-column type="selection"></el-table-column>-->
-        <el-table-column fixed prop="id" label="老人id" ></el-table-column>
+        <el-table-column fixed prop="ID" label="老人id" ></el-table-column>
         <el-table-column fixed prop="roomnum" label="老人房间号"></el-table-column>
         <el-table-column label="老人基本信息">
           <template slot-scope="scope">
@@ -50,13 +50,14 @@
               <p>健康状况: {{ scope.row.healthstate }}</p>
               <p>描述: {{ scope.row.description }}</p>
               <p>入院日期: {{ scope.row.checkindate }}</p>
-              <p>出院日期: {{ scope.row.checkoutdate }}</p>
+<!--              <p>出院日期: {{ scope.row.checkoutdate }}</p>-->
               <div slot="reference" class="name-wrapper">
                 <el-tag type="info" effect="plain" size="medium">{{ scope.row.healthstate }}</el-tag>
               </div>
             </el-popover>
           </template>
         </el-table-column>
+        <el-table-column prop="checkoutdate" label="老人出院日期"></el-table-column>
         <el-table-column label="第一监护人信息">
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="top">
@@ -99,7 +100,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 更新老人信息相关  -->
-            <el-button @click="dialogVisible = true" type="text" style="flex: auto" size="small" >更新信息</el-button>
+            <el-button @click="updateButton(scope.row)" type="text" style="flex: auto" size="small" >更新信息</el-button>
             <el-dialog title="更新老人信息" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
               <el-form :inline="true" :model="updateForm" ref="updateForm" :rules="rulesUpdate" label-width="120px" class="input-form">
                 <el-divider><p>老人基本信息</p></el-divider>
@@ -168,11 +169,15 @@
             </el-dialog>
             <!-- 办理老人出院相关 -->
             <br>
-            <el-button @click="dialogVisible_out = true" type="text" style="flex: auto" size="small" >办理出院</el-button>
+            <el-button @click="outButton(scope.row)" type="text" style="flex: auto" size="small" >办理出院</el-button>
             <el-dialog title="出院" :visible.sync="dialogVisible_out" width="30%">
-              <el-form>
+              <el-form :inline="true" :model="outForm" ref="outForm" :rules="rulesOut" label-width="120px" class="input-form">
                 <el-form-item>
                   <span style=" flex: auto; padding:6px; color: #403b3b">确认为老人{{scope.row.oldname}}办理出院手续吗？</span>
+                </el-form-item>
+                <el-form-item prop="description" label-position="left" class="input-el-form-item">
+                  <span slot="label"  style="color: #403b3b">相关描述？</span>
+                  <el-input v-model="outForm.description" placeholder="若无描则不填写"  size="small" clearable style="width: 165px;"></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
@@ -257,32 +262,31 @@ export default {
         username:''
       },
       tableData: [
-        {
-          id:'1',
-          oldname:'yyz',
-          sex:'F',
-          phone:'15302938376',
-          idcard:'440698200206264546',
-          birthday:'2002-06-26',
-          roomnum:'204',
-          firstguardianname:'test01',
-          firstguardianrela:'test01',
-          firstguardianphone:'15300992277',
-          firstguardianwechat:'ss',
-          secondguardianname:'test11',
-          secondguardianrela:'test11',
-          secondguardianphone:'15300997788',
-          secondguardianwechat:'ssa',
-          healthstate:'良好',
-          description:'准备出院',
-          checkindate:'2023-07-07',
-          checkoutdate:'',
-          created:'2023-07-07',
-          createby:'zzz',
-          updated:'2023-07-08',
-          updateby:'zzz'
-        },
-
+        // {
+        //   ID:'1',
+        //   oldname:'yyz',
+        //   sex:'F',
+        //   phone:'15302938376',
+        //   idcard:'440698200206264546',
+        //   birthday:'2002-06-26',
+        //   roomnum:'204',
+        //   firstguardianname:'test01',
+        //   firstguardianrela:'test01',
+        //   firstguardianphone:'15300992277',
+        //   firstguardianwechat:'ss',
+        //   secondguardianname:'test11',
+        //   secondguardianrela:'test11',
+        //   secondguardianphone:'15300997788',
+        //   secondguardianwechat:'ssa',
+        //   healthstate:'良好',
+        //   description:'准备出院',
+        //   checkindate:'2023-07-07',
+        //   checkoutdate:'',
+        //   created:'2023-07-07',
+        //   createby:'zzz',
+        //   updated:'2023-07-08',
+        //   updateby:'zzz'
+        // },
       ],
       // 查询规则
       rules: {
@@ -302,6 +306,12 @@ export default {
         secondguardianphone:[{validator:phone, trigger: 'blur'}],
         secondguardianwechat:[],
         healthstate:[],
+        description:[],
+        username:[]
+      },
+      // 签出规则
+      rulesOut:{
+        id:[{validator: id, trigger: 'blur'}],
         description:[],
         username:[]
       },
@@ -325,8 +335,9 @@ export default {
     fetchNewTable() {
       manage.getOldList().then(res => {
         console.log("刷新表格")
-        if (res.data.code == 200 ) {
-          this.tableData = res.data.oldList
+        console.log(res)
+        if (res.code == 200 ) {
+          this.tableData = res.oldList
         }
       })
     },
@@ -337,9 +348,14 @@ export default {
         console.log("通过表单验证")
         if(valid){
           this.Loading = true
+          console.log(this.checkForm.id)
+          // this.checkForm.id =
           manage.checkOldById(this.checkForm.id).then(res => {
-            if (res.data.code == 200) {
-              this.tableData = res.data.oldList
+            if (res.code == 200) {
+              console.log(res)
+              this.tableData = res.oldList
+              console.log(this.tableData)
+              console.log("check,断点1")
               this.$message({
                 message: "搜索成功",
                 type: "success"
@@ -350,9 +366,9 @@ export default {
                 type: "error"
               })
             }
-          }).finally(res => {
-            this.Loading = false
           })
+          this.Loading = false
+
         } else {
           console.log("没有通过表单验证")
         }
@@ -363,17 +379,39 @@ export default {
       this.$router.push({ path: '/addOld' })
     },
     // 更新老人信息
+    updateButton(row){
+      // 获取相关信息
+      this.dialogVisible = true
+      this.updateForm.id = row.ID
+      this.updateForm.username = window.sessionStorage.getItem('username')
+
+      this.updateForm.roomnum = row.roomnum
+      this.updateForm.phone = row.phone
+      this.updateForm.firstguardianname = row.firstguardianname
+      this.updateForm.firstguardianrela = row.firstguardianrela
+      this.updateForm.firstguardianphone = row.firstguardianphone
+      this.updateForm.firstguardianwechat = row.firstguardianwechat
+      this.updateForm.secondguardianname = row.secondguardianname
+      this.updateForm.secondguardianrela = row.secondguardianrela
+      this.updateForm.secondguardianphone = row.secondguardianphone
+      this.updateForm.secondguardianwechat = row.secondguardianwechat
+      this.updateForm.healthstate = row.healthstate
+      this.updateForm.description = row.description
+    },
     update(formName) {
       console.log("更新老人信息触发")
-      // 获取相关信息
       // this.updateForm.id =
       // this.updateForm.username =
+      console.log("id: " + this.updateForm.id)
+      console.log("username: " + this.updateForm.username)
       this.$refs[formName].validate((valid) => {
         console.log("通过表单验证")
+        console.log(this.updateForm)
         if(valid){
           this.Loading = true
           manage.updateOld(this.updateForm).then(res => {
-            if (res.data.code == 200) {
+            if (res.code == 200) {
+              this.fetchNewTable()
               this.$message({
                 message: "更新成功",
                 type: "success"
@@ -394,16 +432,25 @@ export default {
       })
     },
     // 老人出院
+    outButton(row){
+      // 获取相关信息
+      this.dialogVisible_out = true
+      this.outForm.id = row.ID
+      this.outForm.username = window.sessionStorage.getItem('username')
+      this.outForm.description = row.description
+    },
     out(){
       console.log("老人出院触发")
       this.dialogVisible_out = false
-      // 获取相关信息
       // this.outForm.id =
       // this.outForm.description =
       // this.outForm.username =
+      console.log("id: " + this.outForm.id)
+      console.log("username: " + this.outForm.username)
       this.Loading = true
       manage.checkoutOld(this.outForm).then(res => {
-        if (res.data.code == 200) {
+        if (res.code == 200) {
+          this.fetchNewTable()
           this.$message({
             message: "出院成功",
             type: "success"

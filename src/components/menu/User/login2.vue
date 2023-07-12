@@ -97,8 +97,11 @@ export default {
             this.$refs[formName].validate((valid) => {
             if (valid) {
                 this.loading = true
+
+              console.log("断1")
                 user.login(this.loginForm).then(res => {
-                    console.log(res)
+                  console.log(res)
+                  console.log("断2")
                 if (res.status_code === '2' ) {
                     //保存用户名,1账号不存在，2登陆成功，3密码错误，4未输入账号或密码
                     window.localStorage.setItem('username',this.loginForm.username)

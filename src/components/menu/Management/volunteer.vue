@@ -62,7 +62,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 更新义工信息相关  -->
-            <el-button @click="dialogVisible = true" type="text" style="flex: auto" size="small" >更新信息</el-button>
+            <el-button @click="updateButton(scope.row)" type="text" style="flex: auto" size="small" >更新信息</el-button>
             <el-dialog title="更新义工信息" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
               <el-form :inline="true" :model="updateForm" ref="updateForm" :rules="rulesUpdate" label-width="120px" class="input-form">
                 <el-form-item prop="phone" label-position="left" class="input-el-form-item">
@@ -81,11 +81,15 @@
             </el-dialog>
             <!-- 办理义工出院相关 -->
             <br>
-            <el-button @click="dialogVisible_out = true" type="text" style="flex: auto" size="small" >办理签出手续</el-button>
+            <el-button @click="outButton(scope.row)" type="text" style="flex: auto" size="small" >办理签出手续</el-button>
             <el-dialog title="签出" :visible.sync="dialogVisible_out" width="30%">
-              <el-form>
+              <el-form :inline="true" :model="outForm" ref="outForm" :rules="rulesOut" label-width="120px" class="input-form">
                 <el-form-item>
                   <span style=" flex: auto; padding:6px; color: #403b3b">确认为义工{{scope.row.volunteername}}办理签出手续吗？</span>
+                </el-form-item>
+                <el-form-item prop="description" label-position="left" class="input-el-form-item">
+                  <span slot="label"  style="color: #403b3b">相关描述？</span>
+                  <el-input v-model="outForm.description" placeholder="若无描则不填写"  size="small" clearable style="width: 165px;"></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
@@ -161,21 +165,21 @@ export default {
         username:''
       },
       tableData: [
-        {
-          ID:'1',
-          volunteername:'yyz',
-          sex:'F',
-          phone:'15302938376',
-          idcard:'440698200206264546',
-          birthday:'2002-06-26',
-          checkindate:'2023-07-08',
-          checkoutdate:'',
-          description:'准备出院',
-          created:'2023-07-07',
-          createby:'test01',
-          updated:'2023-07-07',
-          updateby:'zzz'
-        },
+        // {
+        //   ID:'1',
+        //   volunteername:'yyz',
+        //   sex:'F',
+        //   phone:'15302938376',
+        //   idcard:'440698200206264546',
+        //   birthday:'2002-06-26',
+        //   checkindate:'2023-07-08',
+        //   checkoutdate:'',
+        //   description:'准备出院',
+        //   created:'2023-07-07',
+        //   createby:'test01',
+        //   updated:'2023-07-07',
+        //   updateby:'zzz'
+        // },
       ],
       // 查询规则
       rules: {
@@ -185,6 +189,12 @@ export default {
       rulesUpdate:{
         id:[{validator: id, trigger: 'blur'}],
         phone:[{validator:phone, trigger: 'blur'}],
+        description:[],
+        username:[]
+      },
+      // 签出规则
+      rulesOut:{
+        id:[{validator: id, trigger: 'blur'}],
         description:[],
         username:[]
       },
@@ -208,12 +218,29 @@ export default {
     fetchNewTable() {
       manage.getVolunteerList().then(res => {
         console.log("刷新表格")
-        if (res.data.code == 200 ) {
-          this.tableData = res.data.employeeList
+        if (res.code == 200 ) {
+          console.log(res)
+          this.tableData = res.volunteerList
         }
       })
     },
     // 根据id查义工
+    // checkPut(res){
+    //   this.tableData = null
+    //   this.tableData[0].ID = res.volunteerList.ID
+    //   this.tableData[0].volunteername = res.volunteerList.volunteername
+    //   this.tableData[0].sex = res.volunteerList.sex
+    //   this.tableData[0].phone = res.volunteerList.phone
+    //   this.tableData[0].idcard = res.volunteerList.idcard
+    //   this.tableData[0].birthday = res.volunteerList.birthday
+    //   this.tableData[0].checkindate = res.volunteerList.checkindate
+    //   this.tableData[0].checkoutdate = res.volunteerList.checkoutdate
+    //   this.tableData[0].description = res.volunteerList.description
+    //   this.tableData[0].created = res.volunteerList.created
+    //   this.tableData[0].createby = res.volunteerList.createby
+    //   this.tableData[0].updated = res.volunteerList.updated
+    //   this.tableData[0].updateby = res.volunteerList.updateby
+    // },
     check(formName) {
       console.log("开始查找")
       this.$refs[formName].validate((valid) => {
@@ -221,8 +248,9 @@ export default {
         if(valid){
           this.Loading = true
           manage.checkVolunteerById(this.checkForm.id).then(res => {
-            if (res.data.code == 200) {
-              this.tableData = res.data.employeeList
+            if (res.code == 200) {
+              console.log(res)
+              this.tableData = res.volunteerList
               this.$message({
                 message: "搜索成功",
                 type: "success"
@@ -233,9 +261,9 @@ export default {
                 type: "error"
               })
             }
-          }).finally(res => {
-            this.Loading = false
           })
+          this.Loading = false
+          console.log("查询结束")
         } else {
           console.log("没有通过表单验证")
         }
@@ -246,17 +274,26 @@ export default {
       this.$router.push({ path: '/addVolunteer' })
     },
     // 更新义工信息
+    updateButton(row) {
+      // 获取相关信息
+      this.dialogVisible = true
+      this.updateForm.id = row.ID
+      this.updateForm.username = window.sessionStorage.getItem('username')
+      this.updateForm.description = row.description
+      this.updateForm.phone = row.phone
+    },
     update(formName) {
       console.log("更新义工信息触发")
       // 获取相关信息
-      // this.updateForm.id =
-      // this.updateForm.username =
+      console.log("id: " + this.updateForm.id)
+      console.log("username: " + this.updateForm.username)
       this.$refs[formName].validate((valid) => {
         console.log("通过表单验证")
         if(valid){
           this.Loading = true
           manage.updateVolunteer(this.updateForm).then(res => {
-            if (res.data.code == 200) {
+            if (res.code == 200) {
+              this.fetchNewTable()
               this.$message({
                 message: "更新成功",
                 type: "success"
@@ -277,6 +314,13 @@ export default {
       })
     },
     // 义工出院
+    outButton(row){
+      // 获取相关信息
+      this.dialogVisible_out = true
+      this.outForm.id = row.ID
+      this.outForm.username = window.sessionStorage.getItem('username')
+      this.outForm.description = row.description
+    },
     out(){
       console.log("义工出院触发")
       this.dialogVisible_out = false
@@ -284,9 +328,12 @@ export default {
       // this.outForm.id =
       // this.outForm.description =
       // this.outForm.username =
+      console.log("id: " + this.outForm.id)
+      console.log("username: " + this.outForm.username)
       this.Loading = true
       manage.checkoutVolunteer(this.outForm).then(res => {
-        if (res.data.code == 200) {
+        if (res.code == 200) {
+          this.fetchNewTable()
           this.$message({
             message: "签出成功",
             type: "success"
