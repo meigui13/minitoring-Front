@@ -224,6 +224,35 @@ export default {
             method: 'get'
         })
     },
-
+   /**
+     * 3.获取所有工作人员数量
+     * @returns
+     */
+   getEmployeeNum() {
+    return request({
+        url: '/manage/getEmployeeNum/',
+        method: 'get'
+    })
+   },
+    /**
+     * 4.获取所有老人数量
+     * @returns
+     */
+    getOldNum() {
+        return request({
+            url: '/manage/getOldNum/',
+            method: 'get'
+        })
+    },
+     /**
+     * 5.获取所有义工数量
+     * @returns
+     */
+   getVolunteerNum() {
+    return request({
+        url: '/manage/getVolunteerNum/',
+        method: 'get'
+    })
+},
 
 }

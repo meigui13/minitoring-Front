@@ -26,5 +26,14 @@ export default {
       method: 'get'
     })
   },
-
+   /**
+     * 3.获取所有管理员数量
+     * @returns
+     */
+   getUserNum() {
+    return request({
+        url: '/manage/getUserNum/',
+        method: 'get'
+    })
+},
 }

@@ -48,6 +48,7 @@ import minitor from "@/api/minitor";
 export default {
   data(){
       return{
+      timer: null,
       currentPage: 1, // 当前页码
       total: 20, // 总条数
       pageSize: 8, // 每页的数据条数
@@ -159,7 +160,10 @@ export default {
       }
     },
     created() {
-      this.fetchNewTable()
+      this.timer = setInterval(() => {
+        setTimeout(this.fetchNewTable(), 0)
+        }, 12000)
+      //this.fetchNewTable()
     
     },
 
@@ -184,7 +188,8 @@ export default {
             }
     },
     destroyed(){
-      this.stop()
+      clearInterval(this.timer);
+      //this.stop()
     },
     methods: {
     // 该方法用于刷新表格

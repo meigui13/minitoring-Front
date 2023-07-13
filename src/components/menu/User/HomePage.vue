@@ -26,7 +26,7 @@
                 <div class="one-icon-container">
                 <div >
                     <i class="iconfont icon old">&#x100e8;</i>
-                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="shelfNum" title="老人数量">
+                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="oldNum" title="老人数量">
                         <template slot="prefix">
                         <i class="el-icon-s-flag" style="color: red"></i>
                         </template>
@@ -40,7 +40,7 @@
             <div class="one-icon-container">
                 <div >
                     <i class="iconfont icon user">&#xe630;</i>
-                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="companyNum" title="用户数量">
+                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="userNum" title="用户数量">
                         <template slot="prefix">
                         <i class="el-icon-s-flag" style="color: red"></i>
                         </template>
@@ -54,7 +54,7 @@
             <div class="one-icon-container">
                 <div >
                     <i class="iconfont icon volunteer">&#xe6ad;</i>
-                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="inPeopleNum" title="义工数量">
+                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="volunteerNum" title="义工数量">
                         <template slot="prefix">
                         <i class="el-icon-s-flag" style="color: red"></i>
                         </template>
@@ -68,7 +68,7 @@
             <div class="one-icon-container">
                 <div >
                     <i class="iconfont icon employee">&#xe608;</i>
-                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="outPeopleNum" title="工作人员数量">
+                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="employeeNum" title="工作人员数量">
                         <template slot="prefix">
                         <i class="el-icon-s-flag" style="color: red"></i>
                         </template>
@@ -117,17 +117,18 @@ export default{
             icon:'',
             userName:'HYT',
             //共同
-            shelfNum: 0,
-            companyNum: 0,
-            inPeopleNum: 0,
-            outPeopleNum: 0,
+            oldNum: 0,
+            userNum: 0,
+            volunteerNum: 0,
+            employeeNum: 0,
             chartForm:[6,28,13,5],
 
         }
     },
     created(){
         this.time=nowTime(),
-        this.userName = window.sessionStorage.getItem('username')
+        this.userName = window.sessionStorage.getItem('username'),
+        this.getNum()
          // 获取chartFrom数据+生成图
         // this.getChartForm()
     },
@@ -135,15 +136,59 @@ export default{
         this.getChartForm()
     },
     methods:{
-        managerToDeal(){
-            this.$router.push('/managerCheck')
-        },
-        //普通用户直接跳到出入库界面
-        userToDealIn(){
-            this.$router.push('/inStock')
-        },
-        userToDealOut(){
-            this.$router.push('/outStock')
+        getNum(){
+            manage.getOldNum().then(res=> {
+                        if (res.code=='200') {
+                            this.$message({
+                                message: res.msg,
+                                type:'success'
+                            })
+                        this.oldNum =res.oldNum
+                        }else{
+                          this.$message({
+                                message: res.msg,
+                            })
+                        }
+            })
+            manage.getUserNum().then(res=> {
+                        if (res.code=='200') {
+                            this.$message({
+                                message: res.msg,
+                                type:'success'
+                            })
+                        this.userNum =res.userNum
+                        }else{
+                          this.$message({
+                                message: res.msg,
+                            })
+                        }
+            })
+            manage.getVolunteerNum().then(res=> {
+                        if (res.code=='200') {
+                            this.$message({
+                                message: res.msg,
+                                type:'success'
+                            })
+                        this.volunteerNum =res.volunteerNum
+                        }else{
+                          this.$message({
+                                message: res.msg,
+                            })
+                        }
+            })
+            manage.getEmployeeNum().then(res=> {
+                        if (res.code=='200') {
+                            this.$message({
+                                message: res.msg,
+                                type:'success'
+                            })
+                        this.employeeNum =res.employeeNum
+                        }else{
+                          this.$message({
+                                message: res.msg,
+                            })
+                        }
+            })
         },
         getChartForm(){
         //     console.log("this.chartForm:" + this.chartForm)
@@ -181,8 +226,8 @@ export default{
         series: [{
           name: '人数',
           type: 'bar',
-        //   data: this.$data.chartForm
-          data: [13,5,6,7]
+          data: this.$data.chartForm
+          //data: []
         }]
       };
       myChart.setOption(option);

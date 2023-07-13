@@ -159,10 +159,16 @@ export default {
       }
     },
     created() {
-      this.fetchNewTable()
+      this.timer = setInterval(() => {
+        setTimeout(this.fetchNewTable(), 0)
+        }, 12000)
+      //this.fetchNewTable()
     
     },
-
+    destroyed(){
+      clearInterval(this.timer);
+      //this.stop()
+    },
   mounted(){
       this.changeMobsfIframe()
             /**

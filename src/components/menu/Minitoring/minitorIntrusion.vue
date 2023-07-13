@@ -159,10 +159,11 @@ export default {
       }
     },
     created() {
-        // window.setInterval(() => {
-        // setTimeout(this.fetchNewTable(), 0)
-        // }, 12000)
-        this.fetchNewTable()
+      this.timer = setInterval(() => {
+        setTimeout(this.fetchNewTable(), 0)
+        }, 12000)
+      //this.fetchNewTable()
+    
     },
 
   mounted(){
@@ -184,6 +185,10 @@ export default {
             window.onresize = function(){
                 changeMobsfIframe()
             }
+    },
+    destroyed(){
+      clearInterval(this.timer);
+      //this.stop()
     },
     methods: {
     // 该方法用于刷新表格
