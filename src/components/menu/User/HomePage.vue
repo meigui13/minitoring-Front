@@ -11,9 +11,6 @@
                     <h3 style="">Hello~{{ userName }}</h3>
                    <div style="margin-bottom: 10px;display: flex;padding: auto;">
                     <div style="margin-right: 10px;">
-                        <i class="iconfont" style="color:rgb(244, 84, 16); margin-right: 5px;font-size:20px;" v-if="authority==='仓库管理员'" >&#xe8d2;</i>
-                        <i class="iconfont" style="color: blue;margin-right: 5px;font-size:20px;" v-else >&#xe8cf;</i>
-                        <span style="">{{ authority }}</span>
                     </div>
                    </div> 
                    <div>
@@ -130,10 +127,12 @@ export default{
     },
     created(){
         this.time=nowTime(),
-        this.userName = window.sessionStorage.getItem('username'),
+        this.userName = window.sessionStorage.getItem('username')
          // 获取chartFrom数据+生成图
+        // this.getChartForm()
+    },
+    mounted(){
         this.getChartForm()
-       
     },
     methods:{
         managerToDeal(){
@@ -147,19 +146,19 @@ export default{
             this.$router.push('/outStock')
         },
         getChartForm(){
-            console.log("this.chartForm:" + this.chartForm)
+        //     console.log("this.chartForm:" + this.chartForm)
+        //   // 生成
+        //   this.myEcharts()
+      manage.getOldAgeNum().then(res =>{
+        console.log("获取echarts表格数据")
+        if(res.code == "200"){
+          console.log(res)
+          this.chartForm = res.array
+          console.log("this.chartForm:" + this.chartForm)
           // 生成
           this.myEcharts()
-    //   manage.getOldAgeNum().then(res =>{
-    //     console.log("获取echarts表格数据")
-    //     if(res.code == "200"){
-    //       console.log(res)
-    //       this.chartForm = res.array
-    //       console.log("this.chartForm:" + this.chartForm)
-    //       // 生成
-    //       this.myEcharts()
-    //     }
-    //   })
+        }
+      })
     },
     myEcharts(){
       console.log("myEcharts函数开始调用")
@@ -182,10 +181,12 @@ export default{
         series: [{
           name: '人数',
           type: 'bar',
-          data: this.$data.chartForm
+        //   data: this.$data.chartForm
+          data: [13,5,6,7]
         }]
       };
       myChart.setOption(option);
+      console.log("调用结束");
     }
   },
 
