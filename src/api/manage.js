@@ -198,6 +198,7 @@ export default {
             method: 'get'
         })
     },
+
     /**
      * 1.增加义工信息
      * @param {*} param
@@ -212,5 +213,17 @@ export default {
         }
         })
     },
+
+    /**
+     * 2.获取老人年龄分布直方图数据
+     * @returns
+     */
+    getOldAgeNum () {
+        return request({
+            url: '/manage/getOldAgeNum/',
+            method: 'get'
+        })
+    },
+
 
 }
