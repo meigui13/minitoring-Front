@@ -86,9 +86,11 @@
             </div>
             
         </el-card>
-        <div class="img-background" style="float: right;width: 49%;height: 500px;">
-            
+      <el-card style="float: right;width: 53%;height: 460px;margin-right:1%;">
+        <div>
+          <div id="main" style="width: 100%;height: 260px;margin-top: 10px"></div>
         </div>
+      </el-card>
         <!-- <el-card style="float: right;width: 49%;">
 
         </el-card> -->
@@ -96,7 +98,7 @@
 </template>
 <script >
 import user from '@/api/user.js'
-
+import manage from "@/api/manage";
 
 function nowTime(){
             var current = new Date();//实例化Date对象
@@ -122,15 +124,15 @@ export default{
             companyNum: 0,
             inPeopleNum: 0,
             outPeopleNum: 0,
-            //在登录后就发送请求并保存下来的数据(普通和管理员参数都一样，只是发送的请求不同)
-            inList:[{}],
-            outList: [ {} ]
+            chartForm:[6,28,13,5],
 
         }
     },
     created(){
         this.time=nowTime(),
-        this.userName = window.sessionStorage.getItem('username')
+        this.userName = window.sessionStorage.getItem('username'),
+         // 获取chartFrom数据+生成图
+        this.getChartForm()
        
     },
     methods:{
@@ -143,43 +145,21 @@ export default{
         },
         userToDealOut(){
             this.$router.push('/outStock')
-        }
-
-    }
-      <!-- 老人年龄分布直方图 -->
-      <el-card style="width: 50%;height:40%">
-        <div>
-          <div id="main" style="width: 100%;height: 260px;margin-top: 10px"></div>
-        </div>
-      </el-card>
-    </div>
-</template>
-<script >
-import manage from "@/api/manage";
-
-export default {
-  data() {
-
-    return {
-      chartForm:[],
-    }
-  },
-  created() {
-    // 获取chartFrom数据+生成图
-    this.getChartForm()
-  },
-  methods: {
-    getChartForm(){
-      manage.getOldAgeNum().then(res =>{
-        console.log("获取echarts表格数据")
-        if(res.code == "200"){
-          console.log(res)
-          this.chartForm = res.array
-          console.log("this.chartForm:" + this.chartForm)
+        },
+        getChartForm(){
+            console.log("this.chartForm:" + this.chartForm)
           // 生成
           this.myEcharts()
-        }
-      })
+    //   manage.getOldAgeNum().then(res =>{
+    //     console.log("获取echarts表格数据")
+    //     if(res.code == "200"){
+    //       console.log(res)
+    //       this.chartForm = res.array
+    //       console.log("this.chartForm:" + this.chartForm)
+    //       // 生成
+    //       this.myEcharts()
+    //     }
+    //   })
     },
     myEcharts(){
       console.log("myEcharts函数开始调用")
@@ -209,12 +189,16 @@ export default {
     }
   },
 
-}
+
+ }
+     
+
+
+
 </script>
 <style lang="less" scoped>
 /**-----------------------------右下--------------------------------------- */
 .img-background{
-    background-image: url('@/assets/image/快递送货.png');
     background-size: cover;
 }
 /**------------------------------顶层---------------------------------- */
