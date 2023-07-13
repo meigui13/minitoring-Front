@@ -159,8 +159,10 @@ export default {
       }
     },
     created() {
-      this.fetchNewTable()
-    
+        // window.setInterval(() => {
+        // setTimeout(this.fetchNewTable(), 0)
+        // }, 12000)
+        this.fetchNewTable()
     },
 
   mounted(){

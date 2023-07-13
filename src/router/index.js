@@ -58,24 +58,24 @@ const router = new VueRouter({
 })
 
 // 路由守卫（加别的页面跳转判断，如添加等）
-router.beforeEach((to, from, next) => {
-  if (to.matched.length === 0) {
-    next('/404')
-  }else {
-    if(to.path == '/login' || to.path == '/' || to.path == '/404'){
-        next()
-    }else {
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.length === 0) {
+//     next('/404')
+//   }else {
+//     if(to.path == '/login' || to.path == '/' || to.path == '/404'){
+//         next()
+//     }else {
 
-      let token = window.sessionStorage.getItem('username')
-      console.log(token)
-      if (  token == null || token === '' ){
-        alert("请先进行登录操作")
-        next('/login')
-      }else {
-         next() //放行
-      }
-    }
-  }
+//       let token = window.sessionStorage.getItem('username')
+//       console.log(token)
+//       if (  token == null || token === '' ){
+//         alert("请先进行登录操作")
+//         next('/login')
+//       }else {
+//          next() //放行
+//       }
+//     }
+//   }
 
-})
+// })
 export default router

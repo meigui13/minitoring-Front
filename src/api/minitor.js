@@ -11,4 +11,14 @@ export default {
       method: 'get',
     })
   },
+  /**
+   * 1.获取事件报表信息
+   * @returns 
+   */
+  stop(){
+    return request({
+      url: '/care/stop/',
+      method: 'post',
+    })
+  },
 }

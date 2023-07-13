@@ -4,7 +4,7 @@
     <el-card style="float: left; height: 560px; width:55%; margin-left: 1%;margin-top: 5px">
     <div>
       <iframe src = "http://localhost:7070/care/getFacialExpressionStream/" id="mobsf" scrolling="no" frameborder="0"
-              style="float: left; height: 500px; width:80%; margin-left: 10%;top: 2px">
+              style="float: left; height: 500px; width:98%; margin-left: 1%;top: 2px">
       </iframe>
     </div>
    </el-card>
