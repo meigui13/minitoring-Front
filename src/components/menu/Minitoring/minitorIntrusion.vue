@@ -111,10 +111,10 @@ export default {
     methods: {
     // 该方法用于刷新表格
     fetchNewTable() {
-      minitor.getEventList().then(res => {
+      minitor.getIntrusionList().then(res => {
         console.log("刷新表格")
         if (res.code == 200 ) {
-          this.tableData = res.eventList
+          this.tableData = res.intrusion_list
         }
       })
     },
