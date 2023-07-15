@@ -3,7 +3,7 @@
     <!--视频显示框 -->
     <el-card style="float: left; height: 560px; width:55%; margin-left: 1%;margin-top: 5px">
     <div>
-      <iframe src = "http://localhost:7070/care/getFiredetectionStream/" id="mobsf" scrolling="no" frameborder="0"
+      <iframe src = "http://localhost:7070/care/getViolenceStream/" id="mobsf" scrolling="no" frameborder="0"
               style="float: left; height: 500px; width:90%; margin-left: 5%;top: 2px">
       </iframe>
     </div>
@@ -70,7 +70,6 @@ export default {
           oldperson_id:'2',
           event_desc:'2号老人很高兴'
         },
-        
       ]
           
       }
@@ -106,7 +105,7 @@ export default {
                 changeMobsfIframe()
             }
     },
-    
+   
     methods: {
     // 该方法用于刷新表格
     fetchNewTable() {

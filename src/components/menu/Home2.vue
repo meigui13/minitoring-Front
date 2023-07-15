@@ -60,6 +60,9 @@
                         <el-menu-item index="minitorFall" class="el-menu-item">摔倒检测监控</el-menu-item>
                         <el-menu-item index="minitorIntrusion" class="el-menu-item">入侵检测监控</el-menu-item>
                         <el-menu-item index="minitorInteract" class="el-menu-item">互动检测监控</el-menu-item>
+                        <el-menu-item index="minitorFire" class="el-menu-item">火焰检测监控</el-menu-item>
+                        <el-menu-item index="minitorViolence" class="el-menu-item">暴力行为检测监控</el-menu-item>
+                        <el-menu-item index="minitorYolo" class="el-menu-item">入侵检测准确版监控</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-aside>

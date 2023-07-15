@@ -14,6 +14,9 @@ import MinitorEmotion from '@/components/menu/Minitoring/minitorEmotion.vue'
 import MinitorFall from '@/components/menu/Minitoring/minitorFall.vue'
 import MinitorInteract from '@/components/menu/Minitoring/minitorInteract.vue'
 import MinitorIntrusion from '@/components/menu/Minitoring/minitorIntrusion.vue'
+import MinitorFire from '@/components/menu/Minitoring/minitorFire.vue'
+import MinitorViolence from '@/components/menu/Minitoring/minitorViolence.vue'
+import MinitorYolo from '@/components/menu/Minitoring/minitorYolo.vue'
 import Test from '@/components/other/test'
 
 import User from '@/components/menu/personalPage.vue'
@@ -47,7 +50,10 @@ const routes = [
       { path: '/minitorEmotion',component:MinitorEmotion},
       { path: '/minitorFall',component:MinitorFall},
       { path: '/minitorinteract',component:MinitorInteract},
-      { path: '/minitorintrusion',component:MinitorIntrusion}
+      { path: '/minitorintrusion',component:MinitorIntrusion},
+      { path: '/minitorfire',component:MinitorFire},
+      { path: '/minitorviolence',component:MinitorViolence},
+      { path: '/minitoryolo',component:MinitorYolo}
     ]
   }
 ]

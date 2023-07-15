@@ -189,7 +189,6 @@ import manage from '@/api/manage'
             this.$refs[formName].validate(valid=>{
                 if (valid) {
                   console.log("通过表单验证")
-                  this.$router.push({ path: '/addFace' })
                     this.loading = true
                     manage.addOld(this.addInfo).then(res=> {
                         if (res.code=='200') {
@@ -198,6 +197,7 @@ import manage from '@/api/manage'
                                 type:'success'
                             })
                             window.sessionStorage.setItem('id',res.id)
+                            console.log("获取到的老人id:" + res.id)
                             this.$router.push({ path: '/addFace' })
                         }
                     }).finally(res=> {

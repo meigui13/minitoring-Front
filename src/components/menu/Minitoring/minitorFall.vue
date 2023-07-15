@@ -22,10 +22,11 @@
       >
         <!-- 表头相关 -->
         <!--        <el-table-column type="selection"></el-table-column>-->
-        <el-table-column fixed prop="ID" label="事件ID"  width="70"></el-table-column>
-        <el-table-column prop="event_type" label="事件类型"></el-table-column>
+        <el-table-column fixed prop="ID" label="事件ID"  width="60"></el-table-column>
+        <el-table-column prop="event_type" label="事件类型" width="70"></el-table-column>
         <el-table-column prop="event_date" label="事件发生时间" width="95"></el-table-column>
-        <el-table-column prop="oldperson_id" label="老人ID" width="70"></el-table-column>
+        <el-table-column prop="oldperson_id" label="老人ID" width="60"></el-table-column>
+        <el-table-column prop="event_place" label="事件发生地点" width="70"></el-table-column>
         <el-table-column prop="event_desc" label="事件描述"></el-table-column>
       </el-table>
        <!-- 分页转跳按钮相关  -->
@@ -54,10 +55,11 @@ export default {
       pageSize: 8, // 每页的数据条数
       isManager:false,// 权限控制
       tableData:[
-        {
+      {
           ID:'2',
           event_type:'摔倒',
           event_date:'2023-07-12',
+          event_place:'房间1',
           oldperson_id:'1',
           event_desc:'1号老人摔倒昏迷不醒'
         },
@@ -65,90 +67,7 @@ export default {
           ID:'1',
           event_type:'笑',
           event_date:'2023-06-12',
-          oldperson_id:'2',
-          event_desc:'2号老人很高兴'
-        },
-        {
-          ID:'2',
-          event_type:'摔倒',
-          event_date:'2023-07-12',
-          oldperson_id:'1',
-          event_desc:'1号老人摔倒昏迷不醒'
-        },
-        {
-          ID:'1',
-          event_type:'笑',
-          event_date:'2023-06-12',
-          oldperson_id:'2',
-          event_desc:'2号老人很高兴'
-        },
-        {
-          ID:'2',
-          event_type:'摔倒',
-          event_date:'2023-07-12',
-          oldperson_id:'1',
-          event_desc:'1号老人摔倒昏迷不醒'
-        },
-        {
-          ID:'1',
-          event_type:'笑',
-          event_date:'2023-06-12',
-          oldperson_id:'2',
-          event_desc:'2号老人很高兴'
-        },
-        {
-          ID:'2',
-          event_type:'摔倒',
-          event_date:'2023-07-12',
-          oldperson_id:'1',
-          event_desc:'1号老人摔倒昏迷不醒'
-        },
-        {
-          ID:'1',
-          event_type:'笑',
-          event_date:'2023-06-12',
-          oldperson_id:'2',
-          event_desc:'2号老人很高兴'
-        },
-        {
-          ID:'2',
-          event_type:'摔倒',
-          event_date:'2023-07-12',
-          oldperson_id:'1',
-          event_desc:'1号老人摔倒昏迷不醒'
-        },
-        {
-          ID:'1',
-          event_type:'笑',
-          event_date:'2023-06-12',
-          oldperson_id:'2',
-          event_desc:'2号老人很高兴'
-        },
-        {
-          ID:'2',
-          event_type:'摔倒',
-          event_date:'2023-07-12',
-          oldperson_id:'1',
-          event_desc:'1号老人摔倒昏迷不醒'
-        },
-        {
-          ID:'1',
-          event_type:'笑',
-          event_date:'2023-06-12',
-          oldperson_id:'2',
-          event_desc:'2号老人很高兴'
-        },
-        {
-          ID:'2',
-          event_type:'摔倒',
-          event_date:'2023-07-12',
-          oldperson_id:'1',
-          event_desc:'1号老人摔倒昏迷不醒'
-        },
-        {
-          ID:'1',
-          event_type:'笑',
-          event_date:'2023-06-12',
+          event_place:'房间2',
           oldperson_id:'2',
           event_desc:'2号老人很高兴'
         },

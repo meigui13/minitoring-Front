@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card style="margin-bottom: 10px;" >
+        <el-card style="margin-bottom: 10px;float: left; width: 99%;" >
             <div class="whole">
             <div style="float: left;display: flex;" >
                 <div class="personal-img">
@@ -85,7 +85,7 @@
         </el-card>
       <el-card style="float: right;width: 53%;height: 460px;margin-right:1%;">
         <div>
-          <div id="main" style="width: 100%;height: 260px;margin-top: 10px"></div>
+          <div id="main" style="width: 100%;height: 350px;margin-left:25px;margin-top: 40px"></div>
         </div>
       </el-card>
         <!-- <el-card style="float: right;width: 49%;">
@@ -143,33 +143,23 @@ export default{
                                 message: res.msg,
                                 type:'success'
                             })
-                        this.oldNum =res.oldNum
+                        this.oldNum =res.oldnum
+                        console.log(this.oldNum)
                         }else{
                           this.$message({
                                 message: res.msg,
                             })
                         }
             })
-            manage.getUserNum().then(res=> {
-                        if (res.code=='200') {
-                            this.$message({
-                                message: res.msg,
-                                type:'success'
-                            })
-                        this.userNum =res.userNum
-                        }else{
-                          this.$message({
-                                message: res.msg,
-                            })
-                        }
-            })
+            
             manage.getVolunteerNum().then(res=> {
                         if (res.code=='200') {
                             this.$message({
                                 message: res.msg,
                                 type:'success'
                             })
-                        this.volunteerNum =res.volunteerNum
+                        this.volunteerNum =res.volunteernum
+                        console.log(this.volunteerNum)
                         }else{
                           this.$message({
                                 message: res.msg,
@@ -182,7 +172,22 @@ export default{
                                 message: res.msg,
                                 type:'success'
                             })
-                        this.employeeNum =res.employeeNum
+                        this.employeeNum =res.employeenum
+                        console.log(this.employNum)
+                        }else{
+                          this.$message({
+                                message: res.msg,
+                            })
+                        }
+            })
+            user.getUserNum().then(res=> {
+                        if (res.code=='200') {
+                            this.$message({
+                                message: res.msg,
+                                type:'success'
+                            })
+                        this.userNum =res.usernum
+                        console.log(this.userNum)
                         }else{
                           this.$message({
                                 message: res.msg,

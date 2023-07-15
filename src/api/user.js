@@ -32,7 +32,7 @@ export default {
      */
    getUserNum() {
     return request({
-        url: '/manage/getUserNum/',
+        url: '/user/getUserNum/',
         method: 'get'
     })
 },
